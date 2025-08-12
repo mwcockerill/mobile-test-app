@@ -1,0 +1,73 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.local
+.env.production
+
+# React Native / Metro
+.metro-health-check*
+metro.config.js.bak
+
+# Build artifacts
+android/app/build/
+android/build/
+ios/build/
+ios/DerivedData/
+e2e-build/
+
+# Test artifacts
+artifacts/
+coverage/
+
+# Logs
+*.log
+logs.txt
+stage-log*.log
+hyperexecute-cli.log
+
+# Archives & Artifacts
+*.zip
+*.tar.gz
+*.apk
+*.ipa
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Detox
+e2e/artifacts/
+
+# CocoaPods (iOS)
+ios/Pods/
+*.xcworkspace
+!default.xcworkspace
+
+# Flipper
+ios/Pods/Flipper*/
+
+# Temporary files
+.tmp/
+tmp/
+temp/
+
+# HyperExecute
+hyperexecute
+hyperexecute-code-*.zip

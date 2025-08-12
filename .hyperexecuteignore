@@ -1,0 +1,12 @@
+ios/Pods/
+ios/build/
+node_modules/
+android/build/
+android/app/build/
+.git/
+*.log
+e2e/artifacts/
+ios/DerivedData/
+android/.gradle/
+.DS_Store
+*.xcuserstate

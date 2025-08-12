@@ -1,0 +1,73 @@
+version: 0.1
+globalTimeout: 150
+testSuiteTimeout: 45
+testSuiteStep: 15
+
+runson: ${matrix.os}
+
+matrix:
+  os: [mac]
+  device: [iPhone16Pro, iPhone15Pro, iPhone14]
+  platform: [ios]
+
+env:
+  LT_USERNAME: ${LT_USERNAME}
+  LT_ACCESS_KEY: ${LT_ACCESS_KEY}
+  DEVICE_NAME: ${matrix.device}
+
+pre:
+  - echo "Setting up React Native environment..."
+  - node --version
+  - npm --version
+  - echo "Installing dependencies..."
+  - npm ci
+  - echo "Installing Detox CLI..."
+  - npm install -g detox-cli
+  - echo "Installing applesimutils..."
+  - brew tap wix/brew
+  - brew install applesimutils
+  - echo "Building iOS app for E2E testing..."
+  - npm run e2e:build
+
+testDiscovery:
+  type: raw
+  mode: dynamic
+  command: find e2e -name "*.e2e.js" | head -10
+
+testRunnerCommand: npm run e2e:test
+
+parallelism: 3
+concurrency: 3
+
+jobLabel: ["react-native", "detox", "mobile-test-app", "e2e", "${matrix.platform}", "${matrix.device}"]
+
+report: true
+partialReports:
+  type: json
+  location: e2e-results
+  frameworkName: detox
+
+post:
+  - echo "Collecting test artifacts and results..."
+  - ls -la e2e/ || echo "No e2e directory"
+  - ls -la e2e/artifacts/ || echo "No artifacts directory"
+  - cat e2e-results/*.json || echo "No JSON results found"
+  - echo "E2E test execution completed on ${matrix.device}"
+
+retryOnFailure: true
+maxRetries: 2
+
+mergeArtifacts: true
+uploadArtefacts:
+  - name: detox-screenshots
+    path:
+      - e2e/artifacts/**/*.png
+      - e2e/artifacts/**/*.jpg
+  - name: detox-logs  
+    path:
+      - e2e/artifacts/**/*.log
+      - e2e/artifacts/**/*.txt
+  - name: test-results
+    path:
+      - e2e-results/*.json
+      - e2e-results/*.xml

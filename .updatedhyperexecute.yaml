@@ -1,0 +1,187 @@
+accessibilityJob: false
+alwaysRunPostSteps: false
+appium: null
+betaFeature:
+    setPartiallyCompletedAsCompleted: false
+captureScreenRecordingForScenarios: false
+codeDirectory: mobile-test-app
+collectLocalGitData: true
+combineTasksInMatrixMode: false
+cypress: false
+differentialUpload:
+    enabled: false
+    forcedDisabled: false
+    ttlHours: null
+dynamicAllocation: false
+env:
+    ANDROID_SDK_ROOT: /usr/local/share/android-sdk
+    LT_ACCESS_KEY: LT_CUYlK9FtRL6OT8x34KXWYnlwWedrW4QzzgItd16ADL6apOy
+    LT_USERNAME: michaelcockerill
+    PATH: /usr/local/share/android-sdk/platform-tools:/usr/local/share/android-sdk/emulator:/usr/local/share/android-sdk/cmdline-tools/latest/bin:$PATH
+errorCategorizedOnFailureOnly: false
+framework:
+    additional_args: null
+    args:
+        appId: ""
+        appPath: ""
+        artifacts: false
+        autoGrantPermissions: false
+        avoidAppLaunch: false
+        customData: {}
+        darkMode: false
+        deviceSelectionStrategy: ""
+        devices: []
+        disableReleaseDevice: false
+        filters:
+            attributes: []
+        fixedIP: ""
+        isRealMobile: null
+        isVirtualDevice: false
+        language: ""
+        locale: ""
+        minorOsVersion: false
+        mitmProxy: false
+        mobileDC: null
+        networkHar: false
+        otherApps: []
+        platformName: ""
+        playwrightRD: false
+        preservedDevice: false
+        queueTimeout: 0
+        resignApp: null
+        shards:
+            mappings: []
+        skipInstall: false
+        skipUninstallPreviousBuild: false
+        skipXMLOnRun: false
+        smartUI: null
+        testRemarks: false
+        testSuiteAppId: ""
+        testSuitePath: ""
+        uninstallPreviousBuild: false
+        xcTestPlanId: ""
+        xcTestPlanPath: ""
+    baseCommand: ""
+    defaultReports: false
+    discoveryFlags: []
+    discoveryMode: ""
+    discoveryType: ""
+    downloadURL: ""
+    flags: []
+    isTestNGXMLSuite: false
+    licenseKey: ""
+    name: ""
+    runnerFlags: []
+    toscaArgs: null
+    userdefinediscovery: false
+    version: ""
+    workingDirectory: ""
+globalPost:
+    commands: []
+    completed: false
+    mode: ""
+    runson: ""
+    shell: ""
+    workingDirectory: ""
+globalPre:
+    cache: false
+    commands: []
+    completed: false
+    location: ""
+    maxRetries: 0
+    mode: ""
+    runson: ""
+    shell: ""
+    type: ""
+    workingDirectory: ""
+    yamlPath: null
+jobID: 4733ec7e-bfae-444c-afc2-5dfbd00c7ffb
+key: '********'
+localHTTPProxy: ""
+ltOptions: {}
+maxRetriesPreSteps: 0
+meta: {}
+platformConfig: null
+post:
+    - echo "Artifacts collected"
+postDirectives:
+    commands:
+        - echo "Artifacts collected"
+    shell: ""
+    workingDirectory: ""
+pre:
+    - echo "Installing dependencies for testing..."
+    - npm ci --force
+    - npm i -g detox-cli
+    - echo "APKs should be pre-built locally"
+    - ls -la e2e-build/
+preDirectives:
+    commands:
+        - echo "Installing dependencies for testing..."
+        - npm ci --force
+        - npm i -g detox-cli
+        - echo "APKs should be pre-built locally"
+        - ls -la e2e-build/
+    maxRetries: 0
+    shell: ""
+    workingDirectory: ""
+project:
+    id: 01K243C1W6X4RXYGCQKFTMWZ6D
+    name: LambdaTest Default Project
+    type: custom
+projectpath: ""
+regionConfig:
+    storage:
+        enabled: false
+        name: ""
+        platform: azure
+        region: ""
+    vm: []
+runson: linux
+runtime:
+    language: node
+    version: "18"
+    addons: []
+    opts: {}
+slackChannel: ""
+sourcePayload:
+    verifySSL: true
+sprofilePath: ""
+storageType: ""
+testDiscoveryResultV3: []
+testSuites:
+    - npm run e2e:test:android
+triggerMode: false
+triggerSource: CLI
+tunnelOpts:
+    testsPerTunnel: 10
+unzipPayload: false
+uploadArtefacts:
+    - email:
+        linkValidity: 0
+        metaInfo: []
+        to: []
+      name: detox-screens
+      path:
+        - e2e/artifacts/**/*.png
+        - e2e/artifacts/**/*.jpg
+    - email:
+        linkValidity: 0
+        metaInfo: []
+        to: []
+      name: detox-logs
+      path:
+        - e2e/artifacts/**/*.log
+        - e2e/artifacts/**/*.txt
+    - email:
+        linkValidity: 0
+        metaInfo: []
+        to: []
+      name: test-results
+      path:
+        - e2e-results/*.json
+        - e2e-results/*.xml
+user: michaelcockerill
+version: "0.1"
+waitForArtefactsUpload: false
+whiteLabelProductTag: ""

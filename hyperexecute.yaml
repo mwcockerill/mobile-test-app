@@ -1,0 +1,48 @@
+version: "0.1"
+runson: linux
+
+env:
+  LT_USERNAME: ${LT_USERNAME}
+  LT_ACCESS_KEY: ${LT_ACCESS_KEY}
+  ANDROID_SDK_ROOT: "/usr/local/share/android-sdk"
+  PATH: "/usr/local/share/android-sdk/platform-tools:/usr/local/share/android-sdk/emulator:/usr/local/share/android-sdk/cmdline-tools/latest/bin:$PATH"
+
+runtime:
+  language: node
+  version: "18"
+
+pre:
+  - echo "=== Starting HyperExecute Pre-Steps ==="
+  - echo "Environment check:"
+  - echo "ANDROID_SDK_ROOT: $ANDROID_SDK_ROOT"
+  - which adb || echo "adb not found"
+  - echo "Installing dependencies for testing..."
+  - npm ci --force
+  - npm i -g detox-cli
+  - echo "APKs should be pre-built locally:"
+  - ls -la e2e-build/ || echo "e2e-build directory not found"
+  - echo "=== Pre-Steps Complete ==="
+
+realDevice:
+  appId: "com.mobiletestapp"
+  operatingSystem: "android"
+  deviceName: "Google Pixel 8"
+  platformVersion: "15"
+  app: "e2e-build/app-debug.apk"
+  otherApps:
+    - "e2e-build/app-debug-androidTest.apk"
+  autoGrantPermissions: true
+
+testSuites:
+  - npm run e2e:test:android
+
+uploadArtefacts:
+  - name: detox-screens
+    path: [ "e2e/artifacts/**/*.png", "e2e/artifacts/**/*.jpg" ]
+  - name: detox-logs
+    path: [ "e2e/artifacts/**/*.log", "e2e/artifacts/**/*.txt" ]
+  - name: test-results
+    path: [ "e2e-results/*.json", "e2e-results/*.xml" ]
+
+post:
+  - echo "Artifacts collected"

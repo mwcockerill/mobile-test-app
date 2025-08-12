@@ -1,0 +1,124 @@
+apply plugin: "com.android.application"
+apply plugin: "com.facebook.react"
+
+import com.android.build.OutputFile
+import org.apache.tools.ant.taskdefs.condition.Os
+
+react {
+  /* default RN config left as-is */
+}
+
+def enableSeparateBuildPerCPUArchitecture = false
+def enableProguardInReleaseBuilds = false
+def jscFlavor = 'org.webkit:android-jsc:+'
+
+def reactNativeArchitectures() {
+  def value = project.getProperties().get("reactNativeArchitectures")
+  return value ? value.split(",") : ["armeabi-v7a", "x86", "x86_64", "arm64-v8a"]
+}
+
+android {
+  ndkVersion rootProject.ext.ndkVersion
+  compileSdkVersion rootProject.ext.compileSdkVersion
+
+  namespace "com.mobiletestapp"
+
+  defaultConfig {
+    applicationId "com.mobiletestapp"
+    minSdkVersion rootProject.ext.minSdkVersion
+    targetSdkVersion rootProject.ext.targetSdkVersion
+    versionCode 1
+    versionName "1.0"
+
+    // 👇 Detox needs AndroidJUnitRunner, not the legacy runner
+    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    // Makes Detox wipe app data between tests for clean state
+    testInstrumentationRunnerArguments clearPackageData: 'true'
+  }
+
+  // Use Java 17 (matches your OpenJDK 17)
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_17
+    targetCompatibility JavaVersion.VERSION_17
+  }
+
+  // (If you have Kotlin in the app module, uncomment)
+  // kotlinOptions { jvmTarget = '17' }
+
+  // Helpful to avoid duplicate META-INF files in some setups
+  packagingOptions {
+    resources {
+      excludes += [
+        "META-INF/LICENSE*",
+        "META-INF/NOTICE*",
+        "META-INF/*.kotlin_module"
+      ]
+    }
+  }
+
+  splits {
+    abi {
+      reset()
+      enable enableSeparateBuildPerCPUArchitecture
+      universalApk false
+      include (*reactNativeArchitectures())
+    }
+  }
+
+  signingConfigs {
+    debug {
+      storeFile file('debug.keystore')
+      storePassword 'android'
+      keyAlias 'androiddebugkey'
+      keyPassword 'android'
+    }
+  }
+
+  buildTypes {
+    debug { signingConfig signingConfigs.debug }
+    release {
+      signingConfig signingConfigs.debug
+      minifyEnabled enableProguardInReleaseBuilds
+      proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+    }
+  }
+
+  applicationVariants.all { variant ->
+    variant.outputs.each { output ->
+      def versionCodes = ["armeabi-v7a": 1, "x86": 2, "arm64-v8a": 3, "x86_64": 4]
+      def abi = output.getFilter(OutputFile.ABI)
+      if (abi != null) {
+        output.versionCodeOverride = defaultConfig.versionCode * 1000 + versionCodes.get(abi)
+      }
+    }
+  }
+}
+
+dependencies {
+  // RN core
+  implementation("com.facebook.react:react-android")
+
+  implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.0.0")
+
+  // Flipper (debug only)
+  debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}")
+  debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {
+    exclude group:'com.squareup.okhttp3', module:'okhttp'
+  }
+  debugImplementation("com.facebook.flipper:flipper-fresco-plugin:${FLIPPER_VERSION}")
+
+  if (hermesEnabled.toBoolean()) {
+    implementation("com.facebook.react:hermes-android")
+  } else {
+    implementation jscFlavor
+  }
+
+  // 👇 Detox test deps
+  androidTestImplementation('com.wix:detox:+') { transitive = true }
+  androidTestImplementation 'androidx.test:runner:1.5.2'
+  androidTestImplementation 'androidx.test:rules:1.5.0'
+  // optional but handy:
+  // androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+}
+
+apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
