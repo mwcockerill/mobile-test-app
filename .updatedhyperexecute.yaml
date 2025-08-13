@@ -95,7 +95,7 @@ globalPre:
     type: ""
     workingDirectory: ""
     yamlPath: null
-jobID: 4733ec7e-bfae-444c-afc2-5dfbd00c7ffb
+jobID: 313230c6-03b9-48bf-b5c7-cad86a00dabf
 key: '********'
 localHTTPProxy: ""
 ltOptions: {}
@@ -110,18 +110,28 @@ postDirectives:
     shell: ""
     workingDirectory: ""
 pre:
+    - echo "=== Starting HyperExecute Pre-Steps ==="
+    - echo "Environment check:"
+    - echo "ANDROID_SDK_ROOT is $ANDROID_SDK_ROOT"
+    - which adb || echo "adb not found"
     - echo "Installing dependencies for testing..."
     - npm ci --force
     - npm i -g detox-cli
-    - echo "APKs should be pre-built locally"
-    - ls -la e2e-build/
+    - echo "APKs should be pre-built locally:"
+    - ls -la e2e-build/ || echo "e2e-build directory not found"
+    - echo "=== Pre-Steps Complete ==="
 preDirectives:
     commands:
+        - echo "=== Starting HyperExecute Pre-Steps ==="
+        - echo "Environment check:"
+        - echo "ANDROID_SDK_ROOT is $ANDROID_SDK_ROOT"
+        - which adb || echo "adb not found"
         - echo "Installing dependencies for testing..."
         - npm ci --force
         - npm i -g detox-cli
-        - echo "APKs should be pre-built locally"
-        - ls -la e2e-build/
+        - echo "APKs should be pre-built locally:"
+        - ls -la e2e-build/ || echo "e2e-build directory not found"
+        - echo "=== Pre-Steps Complete ==="
     maxRetries: 0
     shell: ""
     workingDirectory: ""

@@ -11,7 +11,10 @@
     "e2e:build": "detox build --configuration ios.sim.debug",
     "e2e:test": "detox test --configuration ios.sim.debug",
     "e2e:build:android": "cd android && ./gradlew assembleDebug assembleAndroidTest -DtestBuildType=debug && cd - && mkdir -p e2e-build && cp android/app/build/outputs/apk/debug/app-debug.apk e2e-build/ && cp android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk e2e-build/",
-    "e2e:test:android": "source env.android.zsh && detox test -c android.emu.debug --record-logs all --take-screenshots failing"
+    "e2e:test:android": "source env.android.zsh && detox test -c android.emu.debug --record-logs all --take-screenshots failing",
+    "ci:build": "npm ci && npm run e2e:build:android",
+    "ci:test": "detox test --configuration android.emu.debug --cleanup --headless --record-logs all --take-screenshots failing",
+    "ci:test:debug": "detox test --configuration android.emu.debug --cleanup --record-logs all --take-screenshots all --record-videos failing"
   },
   "dependencies": {
     "react": "18.2.0",
@@ -54,11 +57,21 @@
     "devices": {
       "android.real": {
         "type": "android.attached"
+      },
+      "android.emulator": {
+        "type": "android.emulator",
+        "device": {
+          "avdName": "test_emulator"
+        }
       }
     },
     "configurations": {
       "android.debug.real": {
         "device": "android.real",
+        "app": "android.debug"
+      },
+      "android.emu.debug": {
+        "device": "android.emulator",
         "app": "android.debug"
       }
     }

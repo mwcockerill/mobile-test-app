@@ -1,5 +1,6 @@
 version: "0.1"
 runson: linux
+jobTimeout: 900
 
 env:
   LT_USERNAME: ${LT_USERNAME}
@@ -14,11 +15,11 @@ runtime:
 pre:
   - echo "=== Starting HyperExecute Pre-Steps ==="
   - echo "Environment check:"
-  - echo "ANDROID_SDK_ROOT: $ANDROID_SDK_ROOT"
+  - echo "ANDROID_SDK_ROOT is $ANDROID_SDK_ROOT"
   - which adb || echo "adb not found"
   - echo "Installing dependencies for testing..."
-  - npm ci --force
-  - npm i -g detox-cli
+  - timeout 600 npm ci --production --quiet
+  - timeout 300 npm i -g detox-cli@20.40.2
   - echo "APKs should be pre-built locally:"
   - ls -la e2e-build/ || echo "e2e-build directory not found"
   - echo "=== Pre-Steps Complete ==="
@@ -38,11 +39,17 @@ testSuites:
 
 uploadArtefacts:
   - name: detox-screens
-    path: [ "e2e/artifacts/**/*.png", "e2e/artifacts/**/*.jpg" ]
+    path:
+      - "e2e/artifacts/**/*.png"
+      - "e2e/artifacts/**/*.jpg"
   - name: detox-logs
-    path: [ "e2e/artifacts/**/*.log", "e2e/artifacts/**/*.txt" ]
+    path:
+      - "e2e/artifacts/**/*.log"
+      - "e2e/artifacts/**/*.txt"
   - name: test-results
-    path: [ "e2e-results/*.json", "e2e-results/*.xml" ]
+    path:
+      - "e2e-results/*.json"
+      - "e2e-results/*.xml"
 
 post:
   - echo "Artifacts collected"

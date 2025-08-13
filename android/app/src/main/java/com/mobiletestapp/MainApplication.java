@@ -25,17 +25,6 @@ public class MainApplication extends Application implements ReactApplication {
           List<ReactPackage> packages = new PackageList(this).getPackages();
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
-          
-          // Add Detox package for E2E testing in debug builds
-          if (BuildConfig.DEBUG) {
-            try {
-              Class<?> detoxPackageClass = Class.forName("com.wix.detox.DetoxPackage");
-              packages.add((ReactPackage) detoxPackageClass.newInstance());
-            } catch (Exception e) {
-              // Detox not available, continue normally
-            }
-          }
-          
           return packages;
         }
 
