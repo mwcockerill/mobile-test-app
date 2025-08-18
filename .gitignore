@@ -16,6 +16,8 @@ metro.config.js.bak
 # Build artifacts
 android/app/build/
 android/build/
+android/.gradle/
+android/local.properties
 ios/build/
 ios/DerivedData/
 e2e-build/
