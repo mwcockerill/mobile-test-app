@@ -4,7 +4,7 @@
     <instrumentation
         android:name="androidx.test.runner.AndroidJUnitRunner"
         android:targetPackage="com.mobiletestapp"
-        android:label="Detox E2E Tests" />
+        android:label="E2E Tests" />
 
     <application android:debuggable="true">
         <!-- Fix for Android 12+ compatibility -->

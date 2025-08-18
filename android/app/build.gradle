@@ -30,10 +30,7 @@ android {
     versionCode 1
     versionName "1.0"
 
-    // 👇 Detox needs AndroidJUnitRunner, not the legacy runner
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    // Makes Detox wipe app data between tests for clean state
-    testInstrumentationRunnerArguments clearPackageData: 'true'
   }
 
   // Use Java 17 (matches your OpenJDK 17)
@@ -113,12 +110,6 @@ dependencies {
     implementation jscFlavor
   }
 
-  // 👇 Detox test deps
-  androidTestImplementation('com.wix:detox:+') { transitive = true }
-  androidTestImplementation 'androidx.test:runner:1.5.2'
-  androidTestImplementation 'androidx.test:rules:1.5.0'
-  // optional but handy:
-  // androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
