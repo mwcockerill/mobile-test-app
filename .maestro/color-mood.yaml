@@ -1,0 +1,24 @@
+appId: com.mobiletestapp
+---
+# Test color mood functionality
+- launchApp
+- assertVisible: "🎮 Mini App Collection"
+
+# Test color mood generator
+- assertVisible: "🎨 Color Mood"
+- tapOn: "What's My Color Mood?"
+
+# Alert should appear with color mood
+- assertVisible: "Your Color Mood"
+
+# We can't predict which color, but one of these should be visible
+- assertVisible: 
+    oneOf:
+      - "❤️ Red - Passionate"
+      - "💙 Blue - Calm" 
+      - "💚 Green - Peaceful"
+      - "💛 Yellow - Happy"
+      - "💜 Purple - Creative"
+
+# Close the alert
+- tapOn: "OK"

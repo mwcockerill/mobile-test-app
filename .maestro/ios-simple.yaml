@@ -1,0 +1,10 @@
+appId: org.reactjs.native.example.MobileTestApp
+---
+# Simple iOS test to see what's visible
+- launchApp
+- assertVisible: "🎮 Mini App Collection"
+- assertVisible: "Fun interactive tools"
+- assertVisible: "🎲 Random Number Generator"
+- scroll
+- assertVisible: "📝 Counter App"
+- assertVisible: "Count: 0"

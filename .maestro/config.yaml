@@ -1,0 +1,6 @@
+appId: com.mobiletestapp
+---
+# Basic app launch test
+- launchApp
+- assertVisible: "🎮 Mini App Collection"
+- assertVisible: "Fun interactive tools"

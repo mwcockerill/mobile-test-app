@@ -17,6 +17,11 @@ This is a React Native mobile application created with React Native 0.73.6. It's
 - `npm run lint` - Run ESLint to check code quality
 - `npm test` - Run Jest tests
 
+### E2E Testing
+- `npm run test:e2e` - Run all Maestro E2E tests
+- `npm run test:e2e:android` - Run basic app launch test on Android
+- `maestro studio` - Launch Maestro Studio for test creation
+
 ## Architecture
 
 ### Project Structure
@@ -33,6 +38,7 @@ This is a React Native mobile application created with React Native 0.73.6. It's
 - ESLint for code linting
 - Metro bundler for JavaScript bundling
 - CocoaPods for iOS dependency management (extensive Pods/ directory with Flipper, React Native core modules)
+- Maestro for E2E testing (`.maestro/` directory with YAML test flows)
 
 ### Platform Support
 - iOS: Configured with Xcode project, CocoaPods dependencies, and Flipper debugging tools

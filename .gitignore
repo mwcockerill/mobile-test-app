@@ -57,6 +57,9 @@ Thumbs.db
 # Detox
 e2e/artifacts/
 
+# Maestro
+.maestro/tests/
+
 # CocoaPods (iOS)
 ios/Pods/
 *.xcworkspace

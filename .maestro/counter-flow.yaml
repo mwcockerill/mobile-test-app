@@ -1,0 +1,29 @@
+appId: com.mobiletestapp
+---
+# Test counter app functionality
+- launchApp
+- assertVisible: "🎮 Mini App Collection"
+
+# Navigate to counter section
+- assertVisible: "📝 Counter App"
+- assertVisible: "Count: 0"
+
+# Test increment button
+- tapOn: "+"
+- assertVisible: "Count: 1"
+
+# Test increment again
+- tapOn: "+"
+- assertVisible: "Count: 2"
+
+# Test decrement button
+- tapOn: "-"
+- assertVisible: "Count: 1"
+
+# Test reset button
+- tapOn: "Reset"
+- assertVisible: "Count: 0"
+
+# Test decrement below zero
+- tapOn: "-"
+- assertVisible: "Count: -1"
