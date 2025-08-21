@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   SafeAreaView,
   ScrollView,
-  StatusBar,
   StyleSheet,
   Text,
   useColorScheme,
@@ -15,7 +14,7 @@ import {
 const showAlert = (title: string, message: string, buttons?: Array<{text: string, onPress?: () => void}>) => {
   if (Platform.OS === 'web') {
     if (buttons && buttons.length > 1) {
-      // For multiple choice questions, use confirm
+      // For multiple choice questions, create a custom prompt
       const choice = window.confirm(`${title}\n\n${message}\n\nClick OK for "${buttons[0].text}" or Cancel for other options`);
       if (choice && buttons[0].onPress) {
         buttons[0].onPress();
@@ -30,17 +29,12 @@ const showAlert = (title: string, message: string, buttons?: Array<{text: string
       }
     }
   } else {
-    // Use React Native Alert for mobile
-    const Alert = require('react-native').Alert;
-    if (buttons) {
-      Alert.alert(title, message, buttons);
-    } else {
-      Alert.alert(title, message);
-    }
+    // This would be for React Native mobile - but we're web-only for now
+    window.alert(`${title}\n\n${message}`);
   }
 };
 
-// Define color scheme for web compatibility
+// Define color scheme
 const Colors = {
   lighter: '#F3F3F3',
   light: '#DAE1E7',
@@ -83,23 +77,17 @@ function Section({ children, title }: SectionProps): React.JSX.Element {
   );
 }
 
-function App(): React.JSX.Element {
+export default function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
   const [count, setCount] = useState(0);
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-    minHeight: Platform.OS === 'web' ? '100vh' : undefined,
+    minHeight: '100vh',
   };
 
   return (
     <SafeAreaView style={backgroundStyle}>
-      {Platform.OS !== 'web' && (
-        <StatusBar
-          barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-          backgroundColor={backgroundStyle.backgroundColor}
-        />
-      )}
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}
@@ -119,13 +107,13 @@ function App(): React.JSX.Element {
               { color: isDarkMode ? Colors.light : Colors.dark },
             ]}
           >
-            Fun interactive tools
+            Fun interactive tools - Web Version
           </Text>
         </View>
         <View
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
-            paddingBottom: Platform.OS === 'web' ? 40 : 0,
+            paddingBottom: 40,
           }}
         >
           <Section title="🎲 Random Number Generator">
@@ -169,10 +157,6 @@ function App(): React.JSX.Element {
                   },
                   {
                     text: `${a + b + 1}`,
-                    onPress: () => showAlert('❌ Try again!', 'That\'s not quite right.'),
-                  },
-                  {
-                    text: `${a + b - 1}`,
                     onPress: () => showAlert('❌ Try again!', 'That\'s not quite right.'),
                   },
                 ]);
@@ -243,9 +227,4 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     paddingHorizontal: 20,
   },
-  highlight: {
-    fontWeight: '700',
-  },
 });
-
-export default App;
