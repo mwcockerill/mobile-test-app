@@ -1,6 +1,6 @@
 # 🎮 Mini App Collection
 
-A React Native mobile application showcasing interactive mini-apps and testing infrastructure.
+A cross-platform React Native application showcasing interactive mini-apps with support for iOS, Android, and web platforms.
 
 ## 📱 Features
 
@@ -41,6 +41,9 @@ make android-up  # Starts emulator + runs app
 
 # iOS
 npm run ios
+
+# Web (browser)
+npm run web      # Opens at http://localhost:8081
 ```
 
 ## 🛠️ Development
@@ -58,9 +61,10 @@ npm run lint            # Run ESLint
 npm test               # Run Jest tests
 
 # E2E Testing
-make e2e-build-android  # Build APKs for testing
-make e2e-test-android   # Run E2E tests locally
-make hyperexecute-run   # Run E2E tests on LambdaTest cloud
+npm run test:e2e        # Run all Maestro E2E tests
+npm run test:e2e:launch # Run app launch test
+npm run test:e2e:counter # Run counter functionality test
+npm run test:e2e:full   # Run comprehensive flow test
 ```
 
 ### Android Development Shortcuts
@@ -79,27 +83,29 @@ npm test utils.test.ts      # Run specific test file
 ```
 
 ### E2E Testing
-- **Local**: Uses Detox for React Native E2E testing
-- **Cloud**: LambdaTest HyperExecute for real device testing on Google Pixel 8
-- **CI/CD**: GitHub Actions workflow included
+- **Framework**: Maestro for cross-platform E2E testing
+- **Tests**: Comprehensive test suite covering all Mini App Collection features
+- **Platforms**: iOS and Android mobile testing
 
 ```bash
-# Local E2E testing
-make e2e-build-android
-make e2e-test-android
-
-# Cloud testing (requires LambdaTest credentials)
-make hyperexecute-run
+# E2E testing with Maestro
+npm run test:e2e        # Run all tests
+npm run test:e2e:launch # Test app launch
+npm run test:e2e:counter # Test counter functionality
+npm run test:e2e:full   # Test complete app flow
+maestro studio          # Interactive test creation
 ```
 
 ## 📁 Project Structure
 
 ```
-├── App.tsx                 # Main app component
-├── test/
-│   ├── unit/              # Unit tests
-│   └── integration/       # Integration tests  
-├── e2e/                   # End-to-end tests
+├── App.tsx                 # Main app component (cross-platform)
+├── web-app/               # Web-specific files
+│   ├── App.tsx            # Web-compatible app component
+│   ├── index.web.js       # Web entry point
+│   ├── webpack.config.js  # Webpack bundling config
+│   └── public/index.html  # HTML template
+├── .maestro/              # Maestro E2E tests
 ├── android/               # Android-specific files
 ├── ios/                   # iOS-specific files
 └── Makefile              # Development shortcuts
@@ -109,25 +115,30 @@ make hyperexecute-run
 
 ### Development Environment
 - **React Native**: 0.73.6
+- **React Native Web**: 0.19.13
 - **TypeScript**: 5.0.4
 - **Testing**: Jest + @testing-library/react-native
 - **Linting**: ESLint with React Native preset
-- **E2E**: Detox + LambdaTest HyperExecute
+- **E2E**: Maestro cross-platform testing
+- **Web Bundling**: Webpack 5 with Babel
 
 ### Code Quality Tools
 - ESLint configured for React Native and TypeScript
 - Jest with React Native preset
 - Automated testing on pull requests
 
-## 🌐 Cloud Testing
+## 🌐 Web Deployment
 
-This project includes integration with LambdaTest HyperExecute for testing on real devices:
+The project includes React Native Web support for browser deployment:
 
-- **Real Device Testing**: Google Pixel 8 (Android 15)
-- **Faster Execution**: ~5-10 minutes vs 20+ minutes locally
-- **Comprehensive Results**: Screenshots, videos, logs, and reports
+- **Cross-Platform**: Same codebase runs on iOS, Android, and web browsers
+- **Web-Compatible**: Platform.OS checks and browser-compatible alert functions
+- **Development Server**: Webpack dev server with hot reloading
+- **Build Output**: Optimized bundle for production web deployment
 
-See [README-HyperExecute.md](./README-HyperExecute.md) for detailed cloud testing setup.
+```bash
+npm run web  # Start development server at http://localhost:8081
+```
 
 ## 🚨 Troubleshooting
 
@@ -167,4 +178,4 @@ This project is licensed under the MIT License.
 
 ---
 
-📱 **Built with React Native • Tested on Real Devices • Ready for Production**
+📱 **Built with React Native • Cross-Platform (iOS/Android/Web) • E2E Tested • Ready for Production**
