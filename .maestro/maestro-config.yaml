@@ -1,0 +1,24 @@
+# Maestro Configuration File
+# This file configures global settings for Maestro test execution
+
+# Default app configuration
+appId: com.mobiletestapp
+
+# Test execution settings
+config:
+  # Timeout settings (in milliseconds)
+  timeout: 30000
+  
+  # Retry settings
+  retries: 2
+  
+  # Screenshot settings
+  screenshots: true
+  
+  # Video recording
+  recordVideo: true
+  
+# Test environment variables
+env:
+  TEST_ENV: "e2e"
+  APP_VERSION: "1.0.0"

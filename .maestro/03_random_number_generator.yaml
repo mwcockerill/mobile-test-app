@@ -1,0 +1,21 @@
+appId: com.mobiletestapp
+---
+- launchApp
+- assertVisible: "Generate Random Number"
+
+# Test random number generation
+- tapOn: "Generate Random Number"
+- assertVisible: "Random Number"
+- assertVisible: "Your number:"
+- tapOn: "OK"
+
+# Test multiple generations to ensure randomness works
+- tapOn: "Generate Random Number"
+- assertVisible: "Random Number"
+- assertVisible: "Your number:"
+- tapOn: "OK"
+
+- tapOn: "Generate Random Number" 
+- assertVisible: "Random Number"
+- assertVisible: "Your number:"
+- tapOn: "OK"

@@ -1,0 +1,37 @@
+# Test Suite Runner
+# This file defines the complete test suite execution order
+
+name: Mobile Test App E2E Suite
+description: Comprehensive end-to-end test suite for the Mini App Collection
+
+# Test execution order
+tests:
+  - name: "App Launch Test"
+    file: "01_app_launch.yaml"
+    description: "Verifies app launches successfully and all UI elements are visible"
+    
+  - name: "Counter Functionality Test"
+    file: "02_counter_functionality.yaml"
+    description: "Tests increment, decrement, and reset functionality of the counter"
+    
+  - name: "Random Number Generator Test"
+    file: "03_random_number_generator.yaml"
+    description: "Tests random number generation feature"
+    
+  - name: "Math Challenge Test"
+    file: "04_math_challenge.yaml"
+    description: "Tests interactive math problem functionality"
+    
+  - name: "Color Mood Test"
+    file: "05_color_mood.yaml"
+    description: "Tests color mood selector feature"
+    
+  - name: "Full App Flow Test"
+    file: "06_full_app_flow.yaml"
+    description: "Comprehensive test exercising all features in sequence"
+
+# Global test settings
+settings:
+  parallel: false
+  stopOnFailure: false
+  generateReport: true

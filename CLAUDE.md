@@ -27,6 +27,30 @@ This is a cross-platform React Native application created with React Native 0.73
 
 ## Architecture
 
+### App Architecture
+
+This project uses a **dual-app architecture** where mobile and web are essentially separate applications that share similar functionality:
+
+**Mobile App** (`App.tsx` in root):
+- Uses React Native CLI with Metro bundler
+- Runs on iOS/Android simulators and devices
+- Started with `npm start` (Metro bundler) then selecting iOS/Android platform
+- Entry point: Root `App.tsx`
+
+**Web App** (`web-app/App.tsx`):
+- Uses React Native Web with Webpack dev server
+- Runs in browser at http://localhost:8081
+- Started with `npm run web` (separate webpack process)
+- Entry point: `web-app/App.tsx`
+
+**Why separate apps?**
+- Different build systems optimized for each platform (Metro for mobile, Webpack for web)
+- Platform-specific configurations and optimizations
+- Independent development and deployment workflows
+- Better performance and bundle size control per platform
+
+Both apps share React Native components and similar functionality but are built and served completely separately. This is why `npm start` only shows iOS/Android options - web has its own development server.
+
 ### Project Structure
 - `App.tsx` - Main application component with Mini App Collection features
 - `web-app/` - Web-specific configuration and React Native Web setup

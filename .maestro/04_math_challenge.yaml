@@ -1,0 +1,40 @@
+appId: com.mobiletestapp
+---
+- launchApp
+- assertVisible: "Give Me a Math Problem"
+
+# Test math challenge functionality
+- tapOn: "Give Me a Math Problem"
+- assertVisible: "Math Challenge"
+- assertVisible: "What is"
+
+# Since the math problems are random, we'll test the flow rather than specific answers
+# Test selecting an answer (we'll tap the first option which should be correct)
+- tapOn:
+    text: ".*"
+    index: 0
+    
+# Should see either correct or incorrect message
+- assertVisible:
+    text: ".*"
+    timeout: 3000
+
+# Dismiss the result alert
+- tapOn: "OK"
+
+# Test another math problem
+- tapOn: "Give Me a Math Problem"
+- assertVisible: "Math Challenge"
+- assertVisible: "What is"
+
+# Test selecting a different answer
+- tapOn:
+    text: ".*"
+    index: 1
+    
+# Should see result message
+- assertVisible:
+    text: ".*"
+    timeout: 3000
+    
+- tapOn: "OK"

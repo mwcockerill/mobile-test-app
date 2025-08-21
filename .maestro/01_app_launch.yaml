@@ -1,0 +1,13 @@
+appId: com.mobiletestapp
+---
+- launchApp
+- assertVisible: "🎮 Mini App Collection"
+- assertVisible: "Fun interactive tools"
+- assertVisible: "🎲 Random Number Generator"
+- assertVisible: "📝 Counter App" 
+- assertVisible: "🎯 Quick Math"
+- assertVisible: "🎨 Color Mood"
+- assertVisible: "Generate Random Number"
+- assertVisible: "Count: 0"
+- assertVisible: "Give Me a Math Problem"
+- assertVisible: "What's My Color Mood?"
