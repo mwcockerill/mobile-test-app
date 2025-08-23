@@ -59,6 +59,7 @@ e2e/artifacts/
 
 # Maestro
 .maestro/tests/
+debug-logs/
 
 # CocoaPods (iOS)
 ios/Pods/

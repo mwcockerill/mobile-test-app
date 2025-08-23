@@ -6,41 +6,55 @@ appId: com.mobiletestapp
 # Verify initial state
 - assertVisible: "🎮 Mini App Collection"
 - assertVisible: "Fun interactive tools"
-- assertVisible: "Count: 0"
+- assertVisible: "Count: 00"
 
 # Test counter functionality
 - tapOn: "+"
-- assertVisible: "Count: 1"
+- assertVisible: "Count: 10"
 - tapOn: "+"
-- assertVisible: "Count: 2"
+- assertVisible: "Count: 20"
 - tapOn: "-"
-- assertVisible: "Count: 1"
-- tapOn: "Reset"
-- assertVisible: "Count: 0"
+- assertVisible: "Count: 10"
+- tapOn: "RESET"
+- assertVisible: "Count: 00"
 
 # Test random number generator
 - scroll
-- tapOn: "Generate Random Number"
+- tapOn: "GENERATE RANDOM NUMBER"
 - assertVisible: "Random Number"
-- assertVisible: "Your number:"
+- assertVisible:
+    text: "Your number: .*"
 - tapOn: "OK"
 
-# Test math challenge
-- tapOn: "Give Me a Math Problem"
+# Test math challenge - correct answer
+- tapOn: "GIVE ME A MATH PROBLEM"
 - assertVisible: "Math Challenge"
-- assertVisible: "What is"
-- tapOn:
-    text: ".*"
-    index: 0
 - assertVisible:
-    text: "(🎉 Correct!|❌ Try again!)"
+    text: "What is.*"
+- tapOn:
+    text: "\\d+"
+    index: 0
+- assertVisible: "🎉 Correct!"
+- assertVisible: "Well done!"
+- tapOn: "OK"
+
+# Test math challenge - incorrect answer
+- tapOn: "GIVE ME A MATH PROBLEM"
+- assertVisible: "Math Challenge"
+- assertVisible:
+    text: "What is.*"
+- tapOn:
+    text: "\\d+"
+    index: 1
+- assertVisible: "❌ Try again!"
+- assertVisible: "That's not quite right."
 - tapOn: "OK"
 
 # Test color mood
-- tapOn: "What's My Color Mood?"
+- tapOn: "WHAT'S MY COLOR MOOD?"
 - assertVisible: "Your Color Mood"
 - assertVisible:
-    text: "(❤️|💙|💚|💛|💜)"
+    text: "(❤️ Red - Passionate|💙 Blue - Calm|💚 Green - Peaceful|💛 Yellow - Happy|💜 Purple - Creative)"
 - tapOn: "OK"
 
 # Test scrolling and app responsiveness
@@ -51,7 +65,7 @@ appId: com.mobiletestapp
 - tapOn: "+"
 - tapOn: "+"
 - tapOn: "+"
-- assertVisible: "Count: 3"
+- assertVisible: "Count: 30"
 
 # Final verification all sections are still visible
 - assertVisible: "🎲 Random Number Generator"

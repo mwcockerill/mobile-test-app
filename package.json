@@ -9,9 +9,9 @@
     "start": "react-native start",
     "test": "jest",
     "test:e2e": "maestro test .maestro",
-    "test:e2e:launch": "maestro test .maestro/app-launch.yaml",
-    "test:e2e:counter": "maestro test .maestro/counter-flow.yaml",
-    "test:e2e:full": "maestro test .maestro/full-app-flow.yaml",
+    "test:e2e:launch": "maestro test .maestro/01_app_launch.yaml",
+    "test:e2e:counter": "maestro test .maestro/02_counter_functionality.yaml",
+    "test:e2e:full": "maestro test .maestro/06_full_app_flow.yaml",
     "web": "cd web-app && webpack serve"
   },
   "dependencies": {

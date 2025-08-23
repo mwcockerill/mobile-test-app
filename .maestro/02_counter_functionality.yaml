@@ -1,32 +1,32 @@
 appId: com.mobiletestapp
 ---
 - launchApp
-- assertVisible: "Count: 0"
+- assertVisible: "Count: 00"
 
 # Test increment functionality
 - tapOn: "+"
-- assertVisible: "Count: 1"
+- assertVisible: "Count: 10"
 - tapOn: "+"
-- assertVisible: "Count: 2"
+- assertVisible: "Count: 20"
 - tapOn: "+"
-- assertVisible: "Count: 3"
+- assertVisible: "Count: 30"
 
 # Test decrement functionality  
 - tapOn: "-"
-- assertVisible: "Count: 2"
+- assertVisible: "Count: 20"
 - tapOn: "-"
-- assertVisible: "Count: 1"
+- assertVisible: "Count: 10"
 
 # Test reset functionality
-- tapOn: "Reset"
-- assertVisible: "Count: 0"
+- tapOn: "RESET"
+- assertVisible: "Count: 00"
 
 # Test negative numbers
 - tapOn: "-"
-- assertVisible: "Count: -1"
+- assertVisible: "Count: -10"
 - tapOn: "-"
-- assertVisible: "Count: -2"
+- assertVisible: "Count: -20"
 
 # Reset back to 0
-- tapOn: "Reset"
-- assertVisible: "Count: 0"
+- tapOn: "RESET"
+- assertVisible: "Count: 00"

@@ -1,21 +1,39 @@
 appId: com.mobiletestapp
 ---
 - launchApp
-- assertVisible: "Generate Random Number"
+- assertVisible: "GENERATE RANDOM NUMBER"
 
 # Test random number generation
-- tapOn: "Generate Random Number"
+- tapOn: "GENERATE RANDOM NUMBER"
 - assertVisible: "Random Number"
-- assertVisible: "Your number:"
+- assertVisible:
+    text: "Your number: \\d+"
 - tapOn: "OK"
 
 # Test multiple generations to ensure randomness works
-- tapOn: "Generate Random Number"
+- tapOn: "GENERATE RANDOM NUMBER"
 - assertVisible: "Random Number"
-- assertVisible: "Your number:"
+- copyTextFrom:
+    text: "Your number: (\\d+)"
+- evalScript: |
+    output.firstNumber = maestro.copiedText;
 - tapOn: "OK"
 
-- tapOn: "Generate Random Number" 
+- tapOn: "GENERATE RANDOM NUMBER"
 - assertVisible: "Random Number"
-- assertVisible: "Your number:"
+- copyTextFrom:
+    text: "Your number: (\\d+)"
+- evalScript: |
+    output.secondNumber = maestro.copiedText;
+- tapOn: "OK"
+
+- tapOn: "GENERATE RANDOM NUMBER"
+- assertVisible: "Random Number"
+- copyTextFrom:
+    text: "Your number: (\\d+)"
+- evalScript: |
+    output.thirdNumber = maestro.copiedText;
+    if (output.firstNumber === output.secondNumber && output.secondNumber === output.thirdNumber) {
+      throw new Error("Randomness test failed - same number generated 3 times: " + output.firstNumber);
+    }
 - tapOn: "OK"

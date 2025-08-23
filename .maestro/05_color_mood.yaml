@@ -1,27 +1,27 @@
 appId: com.mobiletestapp
 ---
 - launchApp
-- assertVisible: "What's My Color Mood?"
+- assertVisible: "WHAT'S MY COLOR MOOD?"
 
 # Test color mood functionality
-- tapOn: "What's My Color Mood?"
+- tapOn: "WHAT'S MY COLOR MOOD?"
 - assertVisible: "Your Color Mood"
 
 # The color mood is random, so we'll check for any of the possible colors
 - assertVisible:
-    text: "(Red - Passionate|Blue - Calm|Green - Peaceful|Yellow - Happy|Purple - Creative)"
+    text: "(❤️ Red - Passionate|💙 Blue - Calm|💚 Green - Peaceful|💛 Yellow - Happy|💜 Purple - Creative)"
     
 - tapOn: "OK"
 
 # Test multiple times to ensure randomness works
-- tapOn: "What's My Color Mood?"
+- tapOn: "WHAT'S MY COLOR MOOD?"
 - assertVisible: "Your Color Mood"
 - assertVisible:
-    text: "(❤️|💙|💚|💛|💜)"
+    text: "(❤️ Red - Passionate|💙 Blue - Calm|💚 Green - Peaceful|💛 Yellow - Happy|💜 Purple - Creative)"
 - tapOn: "OK"
 
-- tapOn: "What's My Color Mood?"
+- tapOn: "WHAT'S MY COLOR MOOD?"
 - assertVisible: "Your Color Mood"
 - assertVisible:
-    text: "(❤️|💙|💚|💛|💜)"
+    text: "(❤️ Red - Passionate|💙 Blue - Calm|💚 Green - Peaceful|💛 Yellow - Happy|💜 Purple - Creative)"
 - tapOn: "OK"
