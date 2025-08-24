@@ -131,6 +131,7 @@ function App(): React.JSX.Element {
           <Section title="🎲 Random Number Generator">
             <Button
               title="Generate Random Number"
+              testID="generate-random-number-button"
               onPress={() =>
                 showAlert(
                   'Random Number',
@@ -149,16 +150,17 @@ function App(): React.JSX.Element {
             >
               Count: {count}
             </Text>
-            <View style={styles.buttonRow}>
-              <Button title="+" onPress={() => setCount(count + 1)} />
-              <Button title="Reset" onPress={() => setCount(0)} />
-              <Button title="-" onPress={() => setCount(count - 1)} />
-            </View>
           </Section>
+          <View style={styles.buttonRow}>
+            <Button title="+" testID="increment-button" onPress={() => setCount(count + 1)} />
+            <Button title="Reset" testID="reset-button" onPress={() => setCount(0)} />
+            <Button title="-" testID="decrement-button" onPress={() => setCount(count - 1)} />
+          </View>
 
           <Section title="🎯 Quick Math">
             <Button
               title="Give Me a Math Problem"
+              testID="math-problem-button"
               onPress={() => {
                 const a = Math.floor(Math.random() * 10) + 1;
                 const b = Math.floor(Math.random() * 10) + 1;
@@ -183,6 +185,7 @@ function App(): React.JSX.Element {
           <Section title="🎨 Color Mood">
             <Button
               title="What's My Color Mood?"
+              testID="color-mood-button"
               onPress={() => {
                 const colors = [
                   '❤️ Red - Passionate',
@@ -242,6 +245,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     paddingHorizontal: 20,
+  },
+  counterButton: {
+    backgroundColor: '#007AFF',
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 8,
+    minWidth: 60,
+    alignItems: 'center',
+  },
+  counterButtonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: '600',
   },
   highlight: {
     fontWeight: '700',

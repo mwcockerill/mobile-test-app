@@ -1,0 +1,38 @@
+appId: org.reactjs.native.example.MobileTestApp
+---
+- launchApp
+- assertVisible: "GIVE ME A MATH PROBLEM"
+
+# Test math challenge functionality
+- tapOn: "GIVE ME A MATH PROBLEM"
+- assertVisible: "Math Challenge"
+- assertVisible:
+    text: "What is.*"
+
+# Since the math problems are random, we'll test the flow rather than specific answers
+# Test selecting an answer (we'll tap the first number option which should be correct)
+- tapOn:
+    text: "\\d+"
+    index: 0
+    
+# Should see correct message (index 0 is always the correct answer)
+- assertVisible: "🎉 Correct!"
+
+# Dismiss the result alert
+- tapOn: "OK"
+
+# Test another math problem
+- tapOn: "GIVE ME A MATH PROBLEM"
+- assertVisible: "Math Challenge"
+- assertVisible:
+    text: "What is.*"
+
+# Test selecting a different answer (wrong answer)
+- tapOn:
+    text: "\\d+"
+    index: 1
+    
+# Should see incorrect message (index 1 is always a wrong answer)
+- assertVisible: "❌ Try again!"
+    
+- tapOn: "OK"

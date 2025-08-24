@@ -1,0 +1,41 @@
+appId: org.reactjs.native.example.MobileTestApp
+---
+- launchApp
+- assertVisible: "Count: 0"
+
+# Test increment functionality
+- tapOn:
+    id: "increment-button"
+- assertVisible: "Count: 1"
+- tapOn:
+    id: "increment-button"
+- assertVisible: "Count: 2"
+- tapOn:
+    id: "increment-button"
+- assertVisible: "Count: 3"
+
+# Test decrement functionality  
+- tapOn:
+    id: "decrement-button"
+- assertVisible: "Count: 2"
+- tapOn:
+    id: "decrement-button"
+- assertVisible: "Count: 1"
+
+# Test reset functionality
+- tapOn:
+    id: "reset-button"
+- assertVisible: "Count: 0"
+
+# Test negative numbers
+- tapOn:
+    id: "decrement-button"
+- assertVisible: "Count: -1"
+- tapOn:
+    id: "decrement-button"
+- assertVisible: "Count: -2"
+
+# Reset back to 0
+- tapOn:
+    id: "reset-button"
+- assertVisible: "Count: 0"

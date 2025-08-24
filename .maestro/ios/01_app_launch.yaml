@@ -1,0 +1,16 @@
+appId: org.reactjs.native.example.MobileTestApp
+---
+- launchApp
+- assertVisible: "🎮 Mini App Collection"
+- assertVisible: "Fun interactive tools"
+- assertVisible: "🎲 Random Number Generator"
+- assertVisible: "📝 Counter App" 
+- assertVisible: "🎯 Quick Math"
+- assertVisible: "🎨 Color Mood"
+- assertVisible:
+    id: "generate-random-number-button"
+- assertVisible: "Count: 0"
+- assertVisible:
+    id: "math-problem-button"
+- assertVisible:
+    id: "color-mood-button"
