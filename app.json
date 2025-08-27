@@ -12,6 +12,11 @@
     },
     "android": {
       "package": "org.reactjs.native.example.MobileTestApp"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "aa0c7649-b8d6-4ca1-a7f3-f0559f5f059c"
+      }
     }
   }
 }

@@ -6,6 +6,7 @@
     "development": {
       "developmentClient": false,
       "distribution": "internal",
+      "node": "20.x.x",
       "ios": {
         "resourceClass": "m-medium"
       },
@@ -16,6 +17,7 @@
     },
     "preview": {
       "distribution": "internal",
+      "node": "20.x.x",
       "ios": {
         "resourceClass": "m-medium"
       },
@@ -24,7 +26,16 @@
         "gradleCommand": ":app:assembleRelease"
       }
     },
+    "android-only": {
+      "distribution": "internal",
+      "node": "20.x.x",
+      "android": {
+        "buildType": "apk",
+        "gradleCommand": ":app:assembleRelease"
+      }
+    },
     "production": {
+      "node": "20.x.x",
       "ios": {
         "resourceClass": "m-medium"
       },
