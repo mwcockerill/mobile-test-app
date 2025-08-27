@@ -1,4 +1,19 @@
 {
   "name": "MobileTestApp",
-  "displayName": "Mobile Test App"
+  "displayName": "Mobile Test App",
+  "expo": {
+    "name": "Mobile Test App",
+    "slug": "mobile-test-app",
+    "version": "1.0.0",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "ios": {
+      "bundleIdentifier": "org.reactjs.native.example.MobileTestApp"
+    },
+    "android": {
+      "package": "org.reactjs.native.example.MobileTestApp"
+    }
+  }
 }
