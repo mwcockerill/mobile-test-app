@@ -1,4 +1,6 @@
 {
+  "name": "MobileTestApp",
+  "displayName": "Mobile Test App",
   "expo": {
     "name": "Mobile Test App",
     "slug": "mobile-test-app",
