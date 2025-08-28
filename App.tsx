@@ -132,12 +132,21 @@ function App(): React.JSX.Element {
             <Button
               title="Generate Random Number"
               testID="generate-random-number-button"
-              onPress={() =>
+              onPress={() => {
+                const randomNum = Math.floor(Math.random() * 100) + 1;
+                
+                // 🐛 DEBUG: Console logging
+                console.log('🎲 Random number generated:', randomNum);
+                console.log('🕐 Generated at:', new Date().toLocaleTimeString());
+                
+                // 🐛 DEBUG: Log user interaction
+                console.warn('User clicked random number generator button');
+                
                 showAlert(
                   'Random Number',
-                  `Your number: ${Math.floor(Math.random() * 100) + 1}`
-                )
-              }
+                  `Your number: ${randomNum}`
+                );
+              }}
             />
           </Section>
 

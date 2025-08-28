@@ -72,11 +72,11 @@ Both apps share React Native components and similar functionality but are built 
 - ESLint for code linting
 - Metro bundler for mobile JavaScript bundling
 - Webpack 5 for web bundling
-- CocoaPods for iOS dependency management (extensive Pods/ directory with Flipper, React Native core modules)
+- CocoaPods for iOS dependency management (React Native core modules)
 - Maestro for E2E testing (`.maestro/` directory with YAML test flows)
 
 ### Platform Support
-- iOS: Configured with Xcode project, CocoaPods dependencies, and Flipper debugging tools
+- iOS: Configured with Xcode project and CocoaPods dependencies
 - Android: Standard Gradle-based build system
 - Web: React Native Web with webpack dev server, browser-compatible alerts and Platform.OS checks
 
