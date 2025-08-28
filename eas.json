@@ -6,7 +6,7 @@
     "development": {
       "developmentClient": false,
       "distribution": "internal",
-      "node": "20.x.x",
+      "node": "20.11.1",
       "ios": {
         "resourceClass": "m-medium"
       },
@@ -17,7 +17,7 @@
     },
     "preview": {
       "distribution": "internal",
-      "node": "20.x.x",
+      "node": "20.11.1",
       "ios": {
         "resourceClass": "m-medium"
       },
@@ -28,14 +28,17 @@
     },
     "android-only": {
       "distribution": "internal",
-      "node": "20.x.x",
+      "node": "20.11.1",
+      "env": {
+        "NODE_ENV": "production"
+      },
       "android": {
         "buildType": "apk",
         "gradleCommand": ":app:assembleRelease"
       }
     },
     "production": {
-      "node": "20.x.x",
+      "node": "20.11.1",
       "ios": {
         "resourceClass": "m-medium"
       },
