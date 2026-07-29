@@ -134,14 +134,6 @@ function App(): React.JSX.Element {
               testID="generate-random-number-button"
               onPress={() => {
                 const randomNum = Math.floor(Math.random() * 100) + 1;
-                
-                // 🐛 DEBUG: Console logging
-                console.log('🎲 Random number generated:', randomNum);
-                console.log('🕐 Generated at:', new Date().toLocaleTimeString());
-                
-                // 🐛 DEBUG: Log user interaction
-                console.warn('User clicked random number generator button');
-                
                 showAlert(
                   'Random Number',
                   `Your number: ${randomNum}`
