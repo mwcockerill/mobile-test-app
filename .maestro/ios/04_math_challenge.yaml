@@ -1,10 +1,12 @@
 appId: org.reactjs.native.example.MobileTestApp
 ---
 - launchApp
-- assertVisible: "GIVE ME A MATH PROBLEM"
+- assertVisible:
+    id: "math-problem-button"
 
 # Test math challenge functionality
-- tapOn: "GIVE ME A MATH PROBLEM"
+- tapOn:
+    id: "math-problem-button"
 - assertVisible: "Math Challenge"
 - assertVisible:
     text: "What is.*"
@@ -14,7 +16,7 @@ appId: org.reactjs.native.example.MobileTestApp
 - tapOn:
     text: "\\d+"
     index: 0
-    
+
 # Should see correct message (index 0 is always the correct answer)
 - assertVisible: "🎉 Correct!"
 
@@ -22,7 +24,8 @@ appId: org.reactjs.native.example.MobileTestApp
 - tapOn: "OK"
 
 # Test another math problem
-- tapOn: "GIVE ME A MATH PROBLEM"
+- tapOn:
+    id: "math-problem-button"
 - assertVisible: "Math Challenge"
 - assertVisible:
     text: "What is.*"
@@ -31,8 +34,8 @@ appId: org.reactjs.native.example.MobileTestApp
 - tapOn:
     text: "\\d+"
     index: 1
-    
+
 # Should see incorrect message (index 1 is always a wrong answer)
 - assertVisible: "❌ Try again!"
-    
+
 - tapOn: "OK"

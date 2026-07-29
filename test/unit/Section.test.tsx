@@ -1,13 +1,12 @@
 import React from "react";
 import { render } from "@testing-library/react-native";
-import { useColorScheme } from "react-native";
+import { useColorScheme, View, Text } from "react-native";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 
-// Mock useColorScheme
-jest.mock("react-native", () => ({
-  ...jest.requireActual("react-native"),
-  useColorScheme: jest.fn(),
-}));
+// Mock only useColorScheme. Spreading the whole react-native module here
+// would eagerly evaluate its lazy native-module getters (e.g. Settings),
+// which crashes outside a real native runtime.
+jest.spyOn(require("react-native"), "useColorScheme");
 
 // Import Section component (we'll need to extract it)
 type SectionProps = {
@@ -72,6 +71,7 @@ describe("Section Component", () => {
     mockUseColorScheme.mockReturnValue("light");
     const { getByText } = render(
       <Section title="Test Title">Test content</Section>
+    );
 
     expect(getByText("Test Title")).toBeTruthy();
   });
@@ -80,6 +80,7 @@ describe("Section Component", () => {
     mockUseColorScheme.mockReturnValue("light");
     const { getByText } = render(
       <Section title="Test Title">Test children content</Section>
+    );
 
     expect(getByText("Test children content")).toBeTruthy();
   });
@@ -88,6 +89,7 @@ describe("Section Component", () => {
     mockUseColorScheme.mockReturnValue("dark");
     const { getByText } = render(
       <Section title="Test Title">Test content</Section>
+    );
 
     const titleElement = getByText("Test Title");
     const contentElement = getByText("Test content");
@@ -104,6 +106,7 @@ describe("Section Component", () => {
     mockUseColorScheme.mockReturnValue("light");
     const { getByText } = render(
       <Section title="Test Title">Test content</Section>
+    );
 
     const titleElement = getByText("Test Title");
     const contentElement = getByText("Test content");

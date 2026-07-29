@@ -1,17 +1,20 @@
 appId: org.reactjs.native.example.MobileTestApp
 ---
 - launchApp
-- assertVisible: "GENERATE RANDOM NUMBER"
+- assertVisible:
+    id: "generate-random-number-button"
 
 # Test random number generation
-- tapOn: "GENERATE RANDOM NUMBER"
+- tapOn:
+    id: "generate-random-number-button"
 - assertVisible: "Random Number"
 - assertVisible:
     text: "Your number: \\d+"
 - tapOn: "OK"
 
 # Test multiple generations to ensure randomness works
-- tapOn: "GENERATE RANDOM NUMBER"
+- tapOn:
+    id: "generate-random-number-button"
 - assertVisible: "Random Number"
 - copyTextFrom:
     text: "Your number: (\\d+)"
@@ -19,7 +22,8 @@ appId: org.reactjs.native.example.MobileTestApp
     output.firstNumber = maestro.copiedText;
 - tapOn: "OK"
 
-- tapOn: "GENERATE RANDOM NUMBER"
+- tapOn:
+    id: "generate-random-number-button"
 - assertVisible: "Random Number"
 - copyTextFrom:
     text: "Your number: (\\d+)"
@@ -27,7 +31,8 @@ appId: org.reactjs.native.example.MobileTestApp
     output.secondNumber = maestro.copiedText;
 - tapOn: "OK"
 
-- tapOn: "GENERATE RANDOM NUMBER"
+- tapOn:
+    id: "generate-random-number-button"
 - assertVisible: "Random Number"
 - copyTextFrom:
     text: "Your number: (\\d+)"

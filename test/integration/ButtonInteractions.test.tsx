@@ -2,13 +2,10 @@ import React from "react";
 import { render, fireEvent } from "@testing-library/react-native";
 import { Alert } from "react-native";
 
-// Mock Alert
-jest.mock("react-native", () => ({
-  ...jest.requireActual("react-native"),
-  Alert: {
-    alert: jest.fn(),
-  },
-}));
+// Mock only Alert.alert. Spreading the whole react-native module here
+// would eagerly evaluate its lazy native-module getters (e.g. Settings),
+// which crashes outside a real native runtime.
+jest.spyOn(Alert, "alert").mockImplementation(() => {});
 
 // Mock Math.random for predictable tests
 const mockMath = Object.create(global.Math);
@@ -100,6 +97,7 @@ describe("Button Interactions Integration Tests", () => {
       expect(mockAlert).toHaveBeenCalledWith(
         "Random Number",
         "Your number: 11"
+      );
 
       mockAlert.mockClear();
 
@@ -207,6 +205,7 @@ describe("Button Interactions Integration Tests", () => {
       expect(mockAlert).toHaveBeenCalledWith(
         "Your Color Mood",
         "❤️ Red - Passionate"
+      );
 
       mockAlert.mockClear();
 
@@ -261,6 +260,7 @@ describe("Button Interactions Integration Tests", () => {
       expect(mockAlert).toHaveBeenCalledWith(
         "Random Number",
         "Your number: 51"
+      );
 
       mockAlert.mockClear();
       mockRandom.mockReturnValue(0.3);

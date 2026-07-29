@@ -6,17 +6,17 @@ appId: com.mobiletestapp
 # Verify initial state
 - assertVisible: "🎮 Mini App Collection"
 - assertVisible: "Fun interactive tools"
-- assertVisible: "Count: 00"
+- assertVisible: "Count: 0"
 
 # Test counter functionality
 - tapOn: "+"
-- assertVisible: "Count: 10"
+- assertVisible: "Count: 1"
 - tapOn: "+"
-- assertVisible: "Count: 20"
+- assertVisible: "Count: 2"
 - tapOn: "-"
-- assertVisible: "Count: 10"
+- assertVisible: "Count: 1"
 - tapOn: "RESET"
-- assertVisible: "Count: 00"
+- assertVisible: "Count: 0"
 
 # Test random number generator
 - scroll
@@ -65,7 +65,7 @@ appId: com.mobiletestapp
 - tapOn: "+"
 - tapOn: "+"
 - tapOn: "+"
-- assertVisible: "Count: 30"
+- assertVisible: "Count: 3"
 
 # Final verification all sections are still visible
 - assertVisible: "🎲 Random Number Generator"

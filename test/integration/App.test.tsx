@@ -3,14 +3,11 @@ import { render, fireEvent } from "@testing-library/react-native";
 import { useColorScheme, Alert } from "react-native";
 import App from "../../App";
 
-// Mock all dependencies
-jest.mock("react-native", () => ({
-  ...jest.requireActual("react-native"),
-  useColorScheme: jest.fn(),
-  Alert: {
-    alert: jest.fn(),
-  },
-}));
+// Mock only the specific exports needed. Spreading the whole react-native
+// module here would eagerly evaluate its lazy native-module getters (e.g.
+// Settings), which crashes outside a real native runtime.
+jest.spyOn(require("react-native"), "useColorScheme");
+jest.spyOn(Alert, "alert").mockImplementation(() => {});
 
 // Mock Math.random for predictable tests
 const mockMath = Object.create(global.Math);
@@ -213,6 +210,7 @@ describe("App Component Integration Tests", () => {
       expect(mockAlert).toHaveBeenCalledWith(
         "Random Number",
         expect.any(String)
+      );
 
       // Counter should still be 1
       expect(getByText("Count: 1")).toBeTruthy();
@@ -223,6 +221,7 @@ describe("App Component Integration Tests", () => {
       expect(mockAlert).toHaveBeenCalledWith(
         "Your Color Mood",
         expect.any(String)
+      );
 
       // Counter should still be 1
       expect(getByText("Count: 1")).toBeTruthy();

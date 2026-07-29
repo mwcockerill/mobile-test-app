@@ -2,11 +2,10 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
 import { useColorScheme } from 'react-native';
 
-// Mock useColorScheme
-jest.mock('react-native', () => ({
-  ...jest.requireActual('react-native'),
-  useColorScheme: jest.fn(),
-}));
+// Mock only useColorScheme. Spreading the whole react-native module here
+// would eagerly evaluate its lazy native-module getters (e.g. Settings),
+// which crashes outside a real native runtime.
+jest.spyOn(require('react-native'), 'useColorScheme');
 
 // Counter component extracted for testing
 import { useState } from 'react';

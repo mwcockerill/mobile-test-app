@@ -1,4 +1,4 @@
-appId: com.mobiletestapp
+appId: org.reactjs.native.example.MobileTestApp
 ---
 # Basic app launch test
 - launchApp
