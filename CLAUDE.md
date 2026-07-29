@@ -16,14 +16,20 @@ This is a cross-platform React Native application created with React Native 0.73
 
 ### Code Quality
 - `npm run lint` - Run ESLint to check code quality
-- `npm test` - Run Jest tests
+- `npm test` - Run Jest unit/integration tests (5 suites, 47 tests, in `test/unit/` and `test/integration/`)
 
 ### E2E Testing
-- `npm run test:e2e` - Run all Maestro E2E tests
-- `npm run test:e2e:launch` - Run basic app launch test
-- `npm run test:e2e:counter` - Run counter functionality test
-- `npm run test:e2e:full` - Run comprehensive app flow test
+- `npm run test:e2e` / `npm run test:e2e:android` - Run all Maestro E2E tests (Android)
+- `npm run test:e2e:ios` - Run all Maestro E2E tests (iOS)
+- `npm run test:e2e:launch` / `:launch:ios` - Run basic app launch test
+- `npm run test:e2e:counter` / `:counter:ios` - Run counter functionality test
+- `npm run test:e2e:full` / `:full:ios` - Run comprehensive app flow test
+- `maestro test .maestro/android/03_random_number_generator.yaml` - Flows without a dedicated npm script (03/04/05) run directly via the Maestro CLI
 - `maestro studio` - Launch Maestro Studio for test creation
+
+Android and iOS have separate flow files under `.maestro/android/` and `.maestro/ios/` (not shared) because Android's native `Button` auto-uppercases its title text while iOS renders it as-is — a flow written for one platform's text casing will not match on the other. iOS flows should prefer `testID`-based selectors (`id: "..."`) over text matching for this reason. Interactive elements' `testID`s: `generate-random-number-button`, `increment-button`, `reset-button`, `decrement-button`, `math-problem-button`, `color-mood-button`.
+
+When mocking `react-native` in a Jest test, mock only the specific export you need via `jest.spyOn(require('react-native'), 'exportName')` (or `jest.spyOn(Alert, 'alert')`). Do **not** do `jest.mock('react-native', () => ({ ...jest.requireActual('react-native'), ... }))` — spreading the whole actual module eagerly evaluates every lazily-loaded native-module getter (e.g. `Settings`), which throws a `TurboModuleRegistry` invariant violation in the Jest environment.
 
 ## Architecture
 
@@ -60,7 +66,9 @@ Both apps share React Native components and similar functionality but are built 
   - `public/index.html` - HTML template for web deployment
 - `android/` - Android-specific configuration and native code
 - `ios/` - iOS-specific configuration including Xcode project files and Podfile for CocoaPods
-- `.maestro/` - Maestro E2E test flows in YAML format
+- `test/unit/` - Jest unit tests (pure logic, isolated component rendering)
+- `test/integration/` - Jest integration tests (full `App` rendering, interaction flows)
+- `.maestro/android/`, `.maestro/ios/` - Maestro E2E test flows in YAML format, per-platform (see E2E Testing above for why they're separate)
 - `node_modules/` - Dependencies
 - `metro.config.js` - Metro bundler configuration
 

@@ -10,7 +10,7 @@ METRO_PORT ?= 8081
 export ANDROID_SDK_ROOT := $(SDK)
 export PATH := $(SDK)/platform-tools:$(SDK)/emulator:$(PATH)
 
-.PHONY: help install start android ios test lint clean e2e-build e2e-test hyperexecute-run hyperexecute-run-ios hyperexecute-status hyperexecute-status-ios android-up adb-reverse
+.PHONY: help install start android ios test lint clean e2e e2e-android e2e-ios android-up adb-reverse
 
 help:
 	@echo "Available commands:"
@@ -20,15 +20,9 @@ help:
 	@echo "  ios                 - Run on iOS"
 	@echo "  test                - Run unit/integration tests"
 	@echo "  lint                - Run linter"
-	@echo "  e2e-build           - Build app for E2E testing (iOS)"
-	@echo "  e2e-build-android   - Build app for E2E testing (Android)"
-	@echo "  e2e-test            - Run E2E tests locally (iOS)"
-	@echo "  e2e-test-android    - Run E2E tests locally (Android)"
-	@echo "  hyperexecute-run    - Run E2E tests on HyperExecute (Android)"
-	@echo "  hyperexecute-run-ios - Run E2E tests on HyperExecute (iOS)"
-	@echo "  hyperexecute-status - Check HyperExecute Android job status"
-	@echo "  hyperexecute-status-ios - Check HyperExecute iOS job status"
-	@echo "  hyperexecute-update - Update HyperExecute CLI binary"
+	@echo "  e2e                 - Run all Maestro E2E tests (Android)"
+	@echo "  e2e-android         - Run all Maestro E2E tests (Android)"
+	@echo "  e2e-ios             - Run all Maestro E2E tests (iOS)"
 	@echo "  clean               - Clean build artifacts"
 	@echo "  android-up          - Start emulator, wire Metro, build & run app"
 	@echo "  adb-reverse         - Re-apply Metro port bridge (if red screen)"
@@ -51,59 +45,13 @@ test:
 lint:
 	npm run lint
 
-e2e-build:
-	npm run e2e:build
+e2e: e2e-android
 
-e2e-build-android:
-	npm run e2e:build:android
+e2e-android:
+	npm run test:e2e:android
 
-e2e-test:
-	npm run e2e:test
-
-e2e-test-android:
-	npm run e2e:test:android
-
-hyperexecute-run:
-	@echo "Running E2E tests on LambdaTest HyperExecute (Android)..."
-	@if [ -f .env ]; then \
-		echo "Loading credentials from .env file..."; \
-		export $$(cat .env | grep -v '^#' | xargs) && ./hyperexecute --disable-updates --config hyperexecute.yaml --verbose; \
-	else \
-		if [ -z "$$LT_USERNAME" ] || [ -z "$$LT_ACCESS_KEY" ]; then \
-			echo "Error: Please set LT_USERNAME and LT_ACCESS_KEY environment variables"; \
-			echo "Or create a .env file with:"; \
-			echo "LT_USERNAME=your_username"; \
-			echo "LT_ACCESS_KEY=your_access_key"; \
-			exit 1; \
-		fi; \
-		./hyperexecute --disable-updates --config hyperexecute.yaml --verbose; \
-	fi
-
-hyperexecute-run-ios:
-	@echo "Running E2E tests on LambdaTest HyperExecute (iOS)..."
-	@if [ -z "$$LT_USERNAME" ] || [ -z "$$LT_ACCESS_KEY" ]; then \
-		echo "Error: Please set LT_USERNAME and LT_ACCESS_KEY environment variables"; \
-		echo "Export them like this:"; \
-		echo "export LT_USERNAME=your_username"; \
-		echo "export LT_ACCESS_KEY=your_access_key"; \
-		exit 1; \
-	fi
-	hyperexecute --config hyperexecute-ios.yaml --verbose
-
-hyperexecute-status:
-	@echo "Checking HyperExecute job status..."
-	hyperexecute --config hyperexecute.yaml --status
-
-hyperexecute-status-ios:
-	@echo "Checking HyperExecute iOS job status..."
-	hyperexecute --config hyperexecute-ios.yaml --status
-
-hyperexecute-update:
-	@echo "Updating HyperExecute CLI binary..."
-	curl -L https://downloads.lambdatest.com/hyperexecute/darwin/hyperexecute -o ./hyperexecute
-	chmod +x ./hyperexecute
-	@echo "HyperExecute CLI updated successfully!"
-	./hyperexecute --version
+e2e-ios:
+	npm run test:e2e:ios
 
 ## Start emulator (if needed), wire Metro (8081), build & run app
 android-up:
