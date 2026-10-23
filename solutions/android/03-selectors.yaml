@@ -1,0 +1,27 @@
+appId: com.mobiletestapp
+---
+# Lesson 3: reach elements by text, by id, and by accessibility label.
+- launchApp
+- tapOn:
+    id: "home-item-selectors"
+- assertVisible: "Last tapped: nothing"
+
+# By text. Android's native Button shows its title in capitals.
+- tapOn: "SUBMIT"
+- assertVisible: "Last tapped: button"
+
+# By text, for a non-button element
+- tapOn: "Tap me by text"
+- assertVisible: "Last tapped: text"
+
+# By id: the same on both platforms, whatever the button shows
+- tapOn:
+    id: "submit-button"
+- assertVisible: "Last tapped: button"
+
+# By accessibility label: Maestro matches it as text
+- tapOn: "Accessible target"
+- assertVisible: "Last tapped: label"
+
+- tapOn:
+    id: "back-button"
