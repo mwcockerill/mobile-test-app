@@ -1,0 +1,44 @@
+appId: com.mobiletestapp
+---
+# Lesson 4: fill in a form, check validation messages, then log in.
+- launchApp
+- tapOn:
+    id: "home-item-forms"
+
+# Submitting an empty form
+- tapOn:
+    id: "login-button"
+- assertVisible: "Email is required"
+
+# An email without a domain
+- tapOn:
+    id: "email-input"
+- inputText: "tester"
+- tapOn:
+    id: "login-button"
+- assertVisible: "Enter a valid email"
+
+# Fix the email, and try a short password
+- tapOn:
+    id: "email-input"
+- eraseText
+- inputText: "tester@example.com"
+- tapOn:
+    id: "password-input"
+- inputText: "short"
+- hideKeyboard
+- tapOn:
+    id: "login-button"
+- assertVisible: "Password must be at least 8 characters"
+
+# A valid password
+- tapOn:
+    id: "password-input"
+- eraseText
+- inputText: "password123"
+- hideKeyboard
+- tapOn:
+    id: "login-button"
+- assertVisible: "Welcome, tester@example.com!"
+- tapOn:
+    id: "back-button"
