@@ -1,0 +1,21 @@
+appId: com.mobiletestapp
+---
+# Lesson 9: move between screens and back again.
+- launchApp
+- tapOn:
+    id: "home-item-navigation"
+- assertVisible: "Navigation overview"
+
+# Into the details page and back out to the overview
+- tapOn:
+    id: "open-details-button"
+- assertVisible:
+    id: "details-text"
+- tapOn:
+    id: "details-back-button"
+- assertVisible: "Navigation overview"
+
+# Back to the home list with the app's own Back button
+- tapOn:
+    id: "back-button"
+- assertVisible: "Learn Mobile Testing"
