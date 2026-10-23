@@ -1,0 +1,25 @@
+appId: com.mobiletestapp
+---
+# Lesson 6: work with native dialogs (alerts).
+- launchApp
+- tapOn:
+    id: "home-item-dialogs"
+
+# The maths dialog: the numbers are random, so match their shape.
+- tapOn:
+    id: "math-problem-button"
+- assertVisible: "Math Challenge"
+- assertVisible: "What is \\d+ \\+ \\d+\\?"
+# Tap the first answer button (its text is just a number).
+- tapOn: "\\d+"
+- assertVisible: "Correct!|Try again!"
+- tapOn: "OK"
+
+# The colour dialog
+- tapOn:
+    id: "color-mood-button"
+- assertVisible: "Your Color Mood"
+- tapOn: "OK"
+- assertNotVisible: "Your Color Mood"
+- tapOn:
+    id: "back-button"
