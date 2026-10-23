@@ -10,10 +10,10 @@
       "android"
     ],
     "ios": {
-      "bundleIdentifier": "org.reactjs.native.example.MobileTestApp"
+      "bundleIdentifier": "com.mobiletestapp"
     },
     "android": {
-      "package": "org.reactjs.native.example.MobileTestApp"
+      "package": "com.mobiletestapp"
     },
     "extra": {
       "eas": {

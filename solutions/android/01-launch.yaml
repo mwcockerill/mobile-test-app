@@ -1,0 +1,12 @@
+appId: com.mobiletestapp
+---
+# Lesson 1: open the Launch screen and check the welcome text.
+- launchApp
+- tapOn:
+    id: "home-item-launch"
+- assertVisible:
+    id: "welcome-text"
+- assertVisible: "Welcome to the practice app"
+- tapOn:
+    id: "back-button"
+- assertVisible: "Learn Mobile Testing"

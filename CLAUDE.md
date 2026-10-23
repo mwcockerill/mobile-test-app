@@ -4,88 +4,29 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a cross-platform React Native application created with React Native 0.73.6. It supports iOS, Android, and web platforms with TypeScript support, containing native mobile configurations and React Native Web for browser deployment.
+A practice kit that teaches testers who are new to automation how to write Maestro tests for a React Native app. It has three parts: a React Native 0.73.6 / TypeScript app whose screens each teach one testing idea, Markdown lessons, and reference Maestro solutions. It is distributed via GitHub only (APK and iOS simulator builds on GitHub Releases). Design: `docs/superpowers/specs/2026-10-22-learn-mobile-testing-design.md`.
 
 ## Development Commands
 
-### Building and Running
-- `npm run android` - Run the app on Android simulator/device
-- `npm run ios` - Run the app on iOS simulator/device
-- `npm run web` - Run the web app in browser (http://localhost:8081)
+- `npm run android` / `npm run ios` - Build and run the app on an emulator/simulator
 - `npm start` - Start the Metro bundler
-
-### Code Quality
-- `npm run lint` - Run ESLint to check code quality
-- `npm test` - Run Jest unit/integration tests (5 suites, 47 tests, in `test/unit/` and `test/integration/`)
-
-### E2E Testing
-- `npm run test:e2e` / `npm run test:e2e:android` - Run all Maestro E2E tests (Android)
-- `npm run test:e2e:ios` - Run all Maestro E2E tests (iOS)
-- `npm run test:e2e:launch` / `:launch:ios` - Run basic app launch test
-- `npm run test:e2e:counter` / `:counter:ios` - Run counter functionality test
-- `npm run test:e2e:full` / `:full:ios` - Run comprehensive app flow test
-- `maestro test .maestro/android/03_random_number_generator.yaml` - Flows without a dedicated npm script (03/04/05) run directly via the Maestro CLI
-- `maestro studio` - Launch Maestro Studio for test creation
-
-Android and iOS have separate flow files under `.maestro/android/` and `.maestro/ios/` (not shared) because Android's native `Button` auto-uppercases its title text while iOS renders it as-is — a flow written for one platform's text casing will not match on the other. iOS flows should prefer `testID`-based selectors (`id: "..."`) over text matching for this reason. Interactive elements' `testID`s: `generate-random-number-button`, `increment-button`, `reset-button`, `decrement-button`, `math-problem-button`, `color-mood-button`.
-
-When mocking `react-native` in a Jest test, mock only the specific export you need via `jest.spyOn(require('react-native'), 'exportName')` (or `jest.spyOn(Alert, 'alert')`). Do **not** do `jest.mock('react-native', () => ({ ...jest.requireActual('react-native'), ... }))` — spreading the whole actual module eagerly evaluates every lazily-loaded native-module getter (e.g. `Settings`), which throws a `TurboModuleRegistry` invariant violation in the Jest environment.
+- `npm run lint` - ESLint
+- `npm test` - Jest unit/integration tests (`test/unit/`, `test/integration/`)
+- `npx jest test/integration/App.test.tsx` - Run a single test file; add `-t "test name"` to run a single test
+- `npx tsc --noEmit` - Type-check
+- `npm run test:e2e:android` / `npm run test:e2e:ios` - Run every reference Maestro flow in `solutions/<platform>/`
+- `maestro test solutions/android/01-launch.yaml` - Run one flow
+- `make android-up` - Boot the emulator if needed, set up `adb reverse` for Metro, then build and run (`make adb-reverse` re-applies the port bridge). The Makefile hardcodes the Homebrew Android SDK path and AVD `Pixel_3a_API_30_ARM64`; override with `make android-up AVD=...`
 
 ## Architecture
 
-### App Architecture
+- `App.tsx` is a thin shell. It holds `openSlug` state and renders either `src/HomeScreen.tsx` or the open practice screen wrapped in `src/components/ScreenFrame.tsx` (title, Back button, lesson hint). There is no navigation library. Android's hardware back button returns to the home list.
+- `src/screens/index.ts` (`SCREENS`) is the registry. Each entry `{ lesson, slug, title, Component }` drives the home list (`home-item-<slug>`), the lesson hint, and the file names `lessons/NN-<slug>.md` and `solutions/<platform>/NN-<slug>.yaml` (`src/lessonPath.ts`).
+- Adding a practice screen means adding all four together: the screen in `src/screens/<slug>/`, its registry entry, its lesson, and both platform solutions. `test/unit/drift.test.ts` fails if any are missing, or if a solution uses an `id:` that isn't a `testID` under `src/`.
+- `test/unit/version.test.ts` keeps `src/version.ts`, `package.json`, Android `versionName` and iOS `MARKETING_VERSION` in step, and checks that the iOS bundle id is `com.mobiletestapp` (the same as the Android `applicationId`).
+- Buttons use `src/components/PracticeButton.tsx`, which keeps its title text exactly as written. Only the Selectors screen uses the native `Button`, deliberately, because Android uppercases its title (`Submit` → `SUBMIT`). That's why `solutions/android/` and `solutions/ios/` are kept separate even where identical. Every interactive element needs a stable `testID`.
+- `lessons/` are for learners (CC BY 4.0). Learners write their own flows in `my-tests/`.
 
-This project uses a **dual-app architecture** where mobile and web are essentially separate applications that share similar functionality:
+## Testing conventions
 
-**Mobile App** (`App.tsx` in root):
-- Uses React Native CLI with Metro bundler
-- Runs on iOS/Android simulators and devices
-- Started with `npm start` (Metro bundler) then selecting iOS/Android platform
-- Entry point: Root `App.tsx`
-
-**Web App** (`web-app/App.tsx`):
-- Uses React Native Web with Webpack dev server
-- Runs in browser at http://localhost:8081
-- Started with `npm run web` (separate webpack process)
-- Entry point: `web-app/App.tsx`
-
-**Why separate apps?**
-- Different build systems optimized for each platform (Metro for mobile, Webpack for web)
-- Platform-specific configurations and optimizations
-- Independent development and deployment workflows
-- Better performance and bundle size control per platform
-
-Both apps share React Native components and similar functionality but are built and served completely separately. This is why `npm start` only shows iOS/Android options - web has its own development server.
-
-### Project Structure
-- `App.tsx` - Main application component with Mini App Collection features
-- `web-app/` - Web-specific configuration and React Native Web setup
-  - `App.tsx` - Web-compatible version of main app
-  - `index.web.js` - Web entry point using AppRegistry
-  - `webpack.config.js` - Webpack configuration for web bundling
-  - `public/index.html` - HTML template for web deployment
-- `android/` - Android-specific configuration and native code
-- `ios/` - iOS-specific configuration including Xcode project files and Podfile for CocoaPods
-- `test/unit/` - Jest unit tests (pure logic, isolated component rendering)
-- `test/integration/` - Jest integration tests (full `App` rendering, interaction flows)
-- `.maestro/android/`, `.maestro/ios/` - Maestro E2E test flows in YAML format, per-platform (see E2E Testing above for why they're separate)
-- `node_modules/` - Dependencies
-- `metro.config.js` - Metro bundler configuration
-
-### Key Technologies
-- React Native 0.73.6
-- React Native Web 0.19.13 for browser compatibility
-- TypeScript 5.0.4
-- Jest for testing
-- ESLint for code linting
-- Metro bundler for mobile JavaScript bundling
-- Webpack 5 for web bundling
-- CocoaPods for iOS dependency management (React Native core modules)
-- Maestro for E2E testing (`.maestro/` directory with YAML test flows)
-
-### Platform Support
-- iOS: Configured with Xcode project and CocoaPods dependencies
-- Android: Standard Gradle-based build system
-- Web: React Native Web with webpack dev server, browser-compatible alerts and Platform.OS checks
-
-The app features a Mini App Collection with interactive tools including counter, random number generator, math challenges, and color mood selector. All features work across mobile and web platforms with appropriate UI adaptations.
+When mocking `react-native` in a Jest test, mock only the specific export you need via `jest.spyOn(require('react-native'), 'exportName')` (or `jest.spyOn(Alert, 'alert')`). Do **not** do `jest.mock('react-native', () => ({ ...jest.requireActual('react-native'), ... }))` — spreading the whole actual module eagerly evaluates every lazily-loaded native-module getter (e.g. `Settings`), which throws a `TurboModuleRegistry` invariant violation in the Jest environment. For `BackHandler`, mock `react-native/Libraries/Utilities/BackHandler` with React Native's own `__mocks__/BackHandler` and call `mockPressBack()`.
