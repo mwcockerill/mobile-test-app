@@ -1,0 +1,35 @@
+appId: com.mobiletestapp
+---
+# Lesson 2: tap the counter buttons and check the count after each tap.
+- launchApp
+- tapOn:
+    id: "home-item-counter"
+- assertVisible: "Count: 0"
+
+# Tap by text
+- tapOn: "+"
+- tapOn: "+"
+- tapOn: "+"
+- assertVisible: "Count: 3"
+
+# Tap by id
+- tapOn:
+    id: "decrement-button"
+- assertVisible:
+    id: "count-text"
+    text: "Count: 2"
+
+# Going below zero
+- tapOn:
+    id: "decrement-button"
+- tapOn:
+    id: "decrement-button"
+- tapOn:
+    id: "decrement-button"
+- assertVisible: "Count: -1"
+
+- tapOn:
+    id: "reset-button"
+- assertVisible: "Count: 0"
+- tapOn:
+    id: "back-button"

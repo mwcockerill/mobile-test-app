@@ -1,31 +1,8 @@
-// Pure function utilities for testing
-export const generateRandomNumber = (
-  min: number = 1,
-  max: number = 100
-): number => {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-};
-
-export const generateMathProblem = () => {
-  const a = Math.floor(Math.random() * 10) + 1;
-  const b = Math.floor(Math.random() * 10) + 1;
-  return { a, b, answer: a + b };
-};
-
-export const calculateAnswer = (a: number, b: number): number => {
-  return a + b;
-};
-
-export const getRandomColor = (): string => {
-  const colors = [
-    '❤️ Red - Passionate',
-    '💙 Blue - Calm',
-    '💚 Green - Peaceful',
-    '💛 Yellow - Happy',
-    '💜 Purple - Creative',
-  ];
-  return colors[Math.floor(Math.random() * colors.length)];
-};
+import {
+  generateMathProblem,
+  generateRandomNumber,
+  getRandomColor,
+} from '../../src/utils';
 
 // Tests
 describe('Utility Functions', () => {
@@ -82,24 +59,6 @@ describe('Utility Functions', () => {
       jest.spyOn(Math, 'random').mockReturnValue(0.3);
       const result = generateMathProblem();
       expect(result.answer).toBe(result.a + result.b);
-    });
-  });
-
-  describe('calculateAnswer', () => {
-    it('returns correct sum of two numbers', () => {
-      expect(calculateAnswer(5, 3)).toBe(8);
-      expect(calculateAnswer(10, 7)).toBe(17);
-      expect(calculateAnswer(0, 0)).toBe(0);
-    });
-
-    it('handles negative numbers', () => {
-      expect(calculateAnswer(-5, 3)).toBe(-2);
-      expect(calculateAnswer(-5, -3)).toBe(-8);
-    });
-
-    it('handles decimal numbers', () => {
-      expect(calculateAnswer(2.5, 3.5)).toBe(6);
-      expect(calculateAnswer(1.1, 2.2)).toBeCloseTo(3.3);
     });
   });
 
