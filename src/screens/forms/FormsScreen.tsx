@@ -49,7 +49,7 @@ export default function FormsScreen(): React.JSX.Element {
       <PracticeButton title="Log in" testID="login-button" onPress={logIn} />
       <Text
         testID="login-message"
-        style={[styles.message, { color: message?.ok ? '#2E7D32' : '#D32F2F' }]}
+        style={[styles.message, message?.ok ? styles.success : styles.error]}
       >
         {message?.text ?? ''}
       </Text>
@@ -61,4 +61,6 @@ const styles = StyleSheet.create({
   label: { fontSize: 15, fontWeight: '600', marginTop: 8 },
   input: { borderWidth: 1, borderRadius: 8, padding: 10, fontSize: 16, marginVertical: 6 },
   message: { fontSize: 16, fontWeight: '600', textAlign: 'center', marginTop: 12 },
+  success: { color: '#2E7D32' },
+  error: { color: '#D32F2F' },
 });

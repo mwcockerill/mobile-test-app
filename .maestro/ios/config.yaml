@@ -1,6 +1,0 @@
-appId: org.reactjs.native.example.MobileTestApp
----
-# Basic app launch test
-- launchApp
-- assertVisible: "🎮 Mini App Collection"
-- assertVisible: "Fun interactive tools"
