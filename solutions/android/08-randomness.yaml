@@ -1,0 +1,16 @@
+appId: com.mobiletestapp
+---
+# Lesson 8: check the shape of random output, not its exact value.
+- launchApp
+- tapOn:
+    id: "home-item-randomness"
+- assertVisible: "Press the button"
+- tapOn:
+    id: "generate-random-number-button"
+# Any whole number
+- assertVisible: "Random number: \\d+"
+# Stricter: only 1 to 100
+- assertVisible: "Random number: ([1-9]|[1-9][0-9]|100)"
+- assertNotVisible: "Press the button"
+- tapOn:
+    id: "back-button"
