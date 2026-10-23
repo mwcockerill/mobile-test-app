@@ -1,0 +1,20 @@
+appId: com.mobiletestapp
+---
+# Lesson 7: wait for content that appears after a delay.
+- launchApp
+- tapOn:
+    id: "home-item-waiting"
+- tapOn:
+    id: "load-button"
+- assertVisible:
+    id: "loading-text"
+# Wait up to 10 seconds for the data, and carry on as soon as it appears.
+- extendedWaitUntil:
+    visible:
+      id: "loaded-text"
+    timeout: 10000
+- assertVisible: "Data loaded"
+- assertNotVisible:
+    id: "loading-text"
+- tapOn:
+    id: "back-button"

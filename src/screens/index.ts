@@ -5,6 +5,7 @@ import FormsScreen from './forms/FormsScreen';
 import LaunchScreen from './launch/LaunchScreen';
 import ListsScreen from './lists/ListsScreen';
 import SelectorsScreen from './selectors/SelectorsScreen';
+import WaitingScreen from './waiting/WaitingScreen';
 
 export const SCREENS: PracticeScreen[] = [
   { lesson: 1, slug: 'launch', title: 'Launch', Component: LaunchScreen },
@@ -13,4 +14,5 @@ export const SCREENS: PracticeScreen[] = [
   { lesson: 4, slug: 'forms', title: 'Forms', Component: FormsScreen },
   { lesson: 5, slug: 'lists', title: 'Lists', Component: ListsScreen },
   { lesson: 6, slug: 'dialogs', title: 'Dialogs', Component: DialogsScreen },
+  { lesson: 7, slug: 'waiting', title: 'Waiting', Component: WaitingScreen },
 ];
