@@ -57,9 +57,11 @@ To change what's in a field, tap it and clear it with `eraseText` before typing 
 ```yaml
 - tapOn:
     id: "email-input"
-- eraseText
+- eraseText: 10
 - inputText: "tester@example.com"
 ```
+
+`eraseText` deletes one character at a time. With no number, it deletes up to 50, which can take 20 seconds or more. `eraseText: 10` deletes up to 10, which is plenty for `tester`.
 
 Now finish the flow yourself:
 
@@ -84,7 +86,8 @@ maestro test my-tests/04-forms.yaml
 ## Common failures
 
 - **Text goes into the wrong field** — `inputText` types into whichever field has focus. Always `tapOn` the field first.
-- **Old text is still in the field** — use `eraseText` before `inputText`.
+- **Old text is still in the field** — use `eraseText` before `inputText`, with a number at least as long as the old text.
+- **The test is very slow** — a bare `eraseText` deletes up to 50 characters one at a time. Give it a number.
 - **`Element not found` for the Log in button** — the keyboard is probably covering it. Add `hideKeyboard`.
 - **Your email comes out as `Tester@example.com`** — the keyboard capitalised it. This app turns that off for the email field, but other apps might not.
 

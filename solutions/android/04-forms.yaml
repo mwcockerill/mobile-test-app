@@ -21,7 +21,7 @@ appId: com.mobiletestapp
 # Fix the email, and try a short password
 - tapOn:
     id: "email-input"
-- eraseText
+- eraseText: 10
 - inputText: "tester@example.com"
 - tapOn:
     id: "password-input"
@@ -34,7 +34,7 @@ appId: com.mobiletestapp
 # A valid password
 - tapOn:
     id: "password-input"
-- eraseText
+- eraseText: 10
 - inputText: "password123"
 - hideKeyboard
 - tapOn:
