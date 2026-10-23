@@ -57,7 +57,7 @@ Then check that the loading message has gone:
 
 ### Why not just pause?
 
-Maestro has `- waitForAnimationToEnd`, and you might be tempted to pause for a fixed time. A fixed pause of 5 seconds:
+In many test tools, the first fix people reach for is a fixed pause ("wait 5 seconds"). A fixed pause of 5 seconds:
 
 - wastes 2 seconds every run when loading takes 3
 - still fails on a slow day when loading takes 6
