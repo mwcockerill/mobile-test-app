@@ -1,0 +1,7 @@
+appId: com.mobiletestapp
+---
+# Your setup smoke test: if this passes, Maestro can reach the app.
+# Run it with:  maestro test my-tests/my-first-test.yaml
+# Then start Lesson 1: lessons/01-launch.md
+- launchApp
+- assertVisible: "Learn Mobile Testing"

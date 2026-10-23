@@ -53,3 +53,29 @@ describe.each(SCREENS)('lesson $lesson ($slug)', screen => {
     },
   );
 });
+
+describe('learner materials', () => {
+  it('has the setup lesson', () => {
+    expect(exists('lessons/00-setup.md')).toBe(true);
+  });
+
+  it('has a starter flow in my-tests', () => {
+    expect(exists('my-tests/README.md')).toBe(true);
+    expect(
+      read('my-tests/my-first-test.yaml').startsWith('appId: com.mobiletestapp'),
+    ).toBe(true);
+  });
+
+  it('has the MIT and CC BY 4.0 licences', () => {
+    expect(read('LICENSE')).toContain('MIT License');
+    expect(read('lessons/LICENSE')).toContain('Creative Commons Attribution 4.0');
+  });
+
+  it('links every lesson from the README', () => {
+    const readme = read('README.md');
+    expect(readme).toContain('lessons/00-setup.md');
+    SCREENS.forEach(screen =>
+      expect(readme).toContain(`lessons/${lessonFileName(screen)}.md`),
+    );
+  });
+});
