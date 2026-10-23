@@ -1,0 +1,23 @@
+appId: com.mobiletestapp
+---
+# Lesson 5: find a row that starts off-screen in a long list.
+- launchApp
+- tapOn:
+    id: "home-item-lists"
+- assertVisible: "Selected: none"
+
+# Item 3 is on screen straight away
+- tapOn:
+    id: "list-item-3"
+- assertVisible: "Selected: Item 3"
+
+# Item 40 isn't on screen until you scroll to it
+- scrollUntilVisible:
+    element:
+      id: "list-item-40"
+    direction: DOWN
+- tapOn:
+    id: "list-item-40"
+- assertVisible: "Selected: Item 40"
+- tapOn:
+    id: "back-button"
