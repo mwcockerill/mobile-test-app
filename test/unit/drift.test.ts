@@ -21,14 +21,20 @@ const sourceText = (dir: string): string =>
 
 const src = sourceText(path.join(root, 'src'));
 
-// A selector id exists if it appears as a literal testID, or starts with the
-// fixed prefix of a template testID such as testID={`list-item-${n}`}.
-const templatePrefixes = [...src.matchAll(/testID=\{`([^`$]*)\$\{/g)].map(
-  m => m[1],
-);
-const hasTestID = (id: string) =>
-  src.includes(`testID="${id}"`) ||
-  templatePrefixes.some(prefix => id.startsWith(prefix));
+// A selector id exists if it appears as a literal testID, or is one of the
+// generated ids: home-item-<registered slug>, or list-item-<1..50>.
+const hasTestID = (id: string) => {
+  const homeItem = id.match(/^home-item-(.+)$/);
+  if (homeItem) {
+    return SCREENS.some(screen => screen.slug === homeItem[1]);
+  }
+  const listItem = id.match(/^list-item-(\d+)$/);
+  if (listItem) {
+    const n = Number(listItem[1]);
+    return n >= 1 && n <= 50;
+  }
+  return src.includes(`testID="${id}"`);
+};
 
 describe.each(SCREENS)('lesson $lesson ($slug)', screen => {
   const name = lessonFileName(screen);

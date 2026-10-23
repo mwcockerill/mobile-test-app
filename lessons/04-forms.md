@@ -77,6 +77,8 @@ When you type, the on-screen keyboard opens and can cover the rest of the screen
 - hideKeyboard
 ```
 
+On iOS, `hideKeyboard` tries to close the keyboard with a small swipe. In some apps that doesn't work, and Maestro carries on **without an error**, leaving the keyboard open. If a later step fails on iOS, check the screenshot to see whether the keyboard was still up. Tapping a non-input part of the screen is another way to close it.
+
 ## Run it
 
 ```bash
@@ -88,7 +90,7 @@ maestro test my-tests/04-forms.yaml
 - **Text goes into the wrong field** — `inputText` types into whichever field has focus. Always `tapOn` the field first.
 - **Old text is still in the field** — use `eraseText` before `inputText`, with a number at least as long as the old text.
 - **The test is very slow** — a bare `eraseText` deletes up to 50 characters one at a time. Give it a number.
-- **`Element not found` for the Log in button** — the keyboard is probably covering it. Add `hideKeyboard`.
+- **A tap lands on the keyboard instead of the button** — the keyboard is covering it. Add `hideKeyboard`, or scroll the button into view.
 - **Your email comes out as `Tester@example.com`** — the keyboard capitalised it. This app turns that off for the email field, but other apps might not.
 
 ## Try this

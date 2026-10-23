@@ -8,11 +8,11 @@ appId: com.mobiletestapp
     id: "load-button"
 - assertVisible:
     id: "loading-text"
-# Wait up to 10 seconds for the data, and carry on as soon as it appears.
+# Wait up to 30 seconds for the data, and carry on as soon as it appears.
 - extendedWaitUntil:
     visible:
       id: "loaded-text"
-    timeout: 10000
+    timeout: 30000
 - assertVisible: "Data loaded"
 - assertNotVisible:
     id: "loading-text"

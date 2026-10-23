@@ -31,22 +31,30 @@ Create `my-tests/07-waiting.yaml`. Open the screen, tap **Load data**, and check
     id: "loading-text"
 ```
 
-### Maestro already waits a little
+### Maestro already waits for you
 
-`assertVisible` doesn't give up immediately. It keeps looking for a few seconds before it fails. So a plain `assertVisible: "Data loaded"` might pass on a fast machine and fail on a slow one. That's the start of a flaky test.
+`assertVisible` doesn't give up immediately. It keeps looking for the element for up to about **17 seconds** (in current Maestro versions) before it fails, and carries on as soon as it appears. So for this screen's 3-second load, a plain `assertVisible: "Data loaded"` works:
 
-### Wait for exactly as long as needed
+```yaml
+- assertVisible: "Data loaded"
+```
 
-`extendedWaitUntil` keeps checking until the element appears, up to a `timeout` in milliseconds:
+Try it. Then think about real apps, where a slow server or a big download can take longer than 17 seconds. A test that relies on the default wait passes on a good day and fails on a bad one. That's the start of a flaky test.
+
+### Wait longer, and say how long
+
+`extendedWaitUntil` keeps checking until the element appears, up to a `timeout` that you choose, in milliseconds:
 
 ```yaml
 - extendedWaitUntil:
     visible:
       id: "loaded-text"
-    timeout: 10000
+    timeout: 30000
 ```
 
-If the data arrives after 3 seconds, the test carries on after 3 seconds. It doesn't sit waiting for all 10. The timeout is only a limit, so set it to the longest wait you'd consider acceptable.
+If the data arrives after 3 seconds, the test carries on after 3 seconds. It doesn't sit waiting for all 30. The timeout is only a limit.
+
+Use `extendedWaitUntil` when something can take longer than the default, or when you want the test to state the limit you've agreed on ("search results must appear within 30 seconds"). Anyone reading the test can see it.
 
 Then check that the loading message has gone:
 
@@ -72,7 +80,7 @@ maestro test my-tests/07-waiting.yaml
 
 ## Common failures
 
-- **Passes on your machine, fails on someone else's** — you're relying on Maestro's default wait. Use `extendedWaitUntil`.
+- **Passes on your machine, fails on someone else's** — something sometimes takes longer than Maestro's default wait. Use `extendedWaitUntil` with a timeout that covers the slowest acceptable case.
 - **Times out** — check that the id is right and that you tapped **Load data** first.
 
 ## Try this

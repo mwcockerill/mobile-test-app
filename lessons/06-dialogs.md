@@ -19,7 +19,7 @@ Open a dialog, then look at it in `maestro studio`. You'll notice:
 
 - The dialog's title, message and buttons have **no ids**. A native dialog is drawn by Android or iOS itself, not by the app's own views, so the app's developers can't give its parts `testID`s.
 - That means you have to use **text** to work with dialogs.
-- Dialogs look different on Android and iOS, but the text is the same.
+- Dialogs look different on Android and iOS. The title and message text are the same, but Android can show button text in capitals (see Common failures).
 
 ## Write the test
 

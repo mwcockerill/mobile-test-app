@@ -11,6 +11,8 @@ Set the new version (e.g. `1.1.0`) in all four places. `test/unit/version.test.t
 - `android/app/build.gradle` → `versionName` (also increase `versionCode`)
 - `ios/MobileTestApp.xcodeproj/project.pbxproj` → every `MARKETING_VERSION`
 
+Also update the version in `lessons/00-setup.md` (the `git checkout` step and the download file names). The version test checks this too.
+
 If you changed a screen, make sure its lesson and both solution flows changed in the same release.
 
 ## 2. Check everything
@@ -20,6 +22,8 @@ npm test && npm run lint && npx tsc --noEmit
 ```
 
 Build the release artifacts, install them, and run every reference flow on both platforms:
+
+The iOS build needs CocoaPods installed first (`cd ios && pod install`).
 
 ```bash
 bash scripts/build-release.sh
@@ -43,4 +47,3 @@ gh release create v<version> dist/mobile-test-app-<version>.apk dist/mobile-test
   --notes "Lessons for this version: https://github.com/mwcockerill/mobile-test-app/tree/v<version>/lessons"
 ```
 
-Then update the version in `lessons/00-setup.md` (the `git checkout` and download file names) if it mentions the old one.

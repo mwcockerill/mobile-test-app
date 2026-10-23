@@ -34,4 +34,10 @@ describe('app version and id', () => {
     expect(ids.length).toBeGreaterThan(0);
     ids.forEach(id => expect(id).toBe('com.mobiletestapp'));
   });
+
+  it('matches the version named in the setup lesson', () => {
+    const versions = read('lessons/00-setup.md').match(/\d+\.\d+\.\d+/g) ?? [];
+    expect(versions.length).toBeGreaterThan(0);
+    versions.forEach(v => expect(v).toBe(APP_VERSION));
+  });
 });

@@ -100,7 +100,7 @@ Open the app. You should see **Learn Mobile Testing** and the version number.
 
 This should work, but the lessons are only checked on emulators. Turn on **Developer options → USB debugging** on the phone, connect it with a USB cable, accept the prompt on the phone, then run `adb install` as above. Close any running emulators so Maestro uses the phone.
 
-> **Why no app store?** Maestro tests iOS apps on the simulator only, and a simulator can't install App Store apps. Downloading builds from GitHub works the same way for everyone.
+> **Why no app store?** This course tests the iOS app on the simulator, and a simulator can't install App Store apps. Downloading builds from GitHub works the same way for everyone.
 
 ## 5. Run your first test
 

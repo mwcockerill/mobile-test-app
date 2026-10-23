@@ -16,7 +16,7 @@ In `maestro studio`, click **Item 3**. Its id is `list-item-3`. Each row's id is
 
 Now run `maestro hierarchy` and search the output for `list-item-40`. **It isn't there.**
 
-On a web page, every row of a 50-row list is in the DOM, even the ones you have to scroll to see. Mobile apps usually draw only the rows that are on screen, plus a few either side. Rows further away don't exist until you scroll near them. That's called *virtualisation*, and it keeps long lists fast. For a tester, it means **an element you can't see often can't be found at all**.
+On a web page, every row of a 50-row list is in the DOM, even the ones you have to scroll to see. Mobile apps often draw only the rows that are on screen, plus a few either side. Rows further away don't exist until you scroll near them, and rows you scroll away from are removed again. This app's list works that way on both Android and iOS. That's called *virtualisation*, and it keeps long lists fast. For a tester, it means **an element you can't see often can't be found at all**.
 
 ## Write the test
 
@@ -51,7 +51,7 @@ maestro test my-tests/05-lists.yaml
 ## Common failures
 
 - **`Element not found: Id matching regex: list-item-40`** — you tapped before scrolling. Add `scrollUntilVisible` first.
-- **`scrollUntilVisible` scrolls past the row** — the list scrolled too far in one swipe. Try adding `speed: 40` to the step to scroll more slowly.
+- **`scrollUntilVisible` scrolls past the row** — the list scrolled too far in one swipe. Add `centerElement: true` to the step so it keeps scrolling until the row is in the middle of the screen, or lower the speed (for example `speed: 20`; the default is 40).
 - **It scrolls the wrong way** — check `direction`. `DOWN` moves *down* the list, towards higher numbers.
 
 ## Try this

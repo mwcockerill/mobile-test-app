@@ -65,7 +65,9 @@ As your tests grow, you'll repeat the same steps, like "open the Navigation scre
       - assertVisible: "Navigation overview"
 ```
 
-`runFlow` can also run another file, for example `- runFlow: open-navigation.yaml`. Put shared steps in their own file and call it from every flow that needs them. If the steps ever change, you only fix them in one place.
+`runFlow` can also run another file, for example `- runFlow: subflows/open-navigation.yaml`. Put shared steps in their own file and call it from every flow that needs them. If the steps ever change, you only fix them in one place.
+
+Keep shared files in a subfolder like `my-tests/subflows/`. `maestro test my-tests/` runs every flow file directly inside `my-tests/`, so a shared file kept there would also run on its own.
 
 ## Run it
 
@@ -78,6 +80,10 @@ Then run your whole folder. This is your own test suite:
 ```bash
 maestro test my-tests/
 ```
+
+## Try this
+
+Open the **Details page**, then press Android's back button. Where do you end up: the overview, or the home list? Which do you think a user would expect? If the app does something you didn't expect, that's worth reporting, even when no requirement covers it.
 
 ## Common failures
 

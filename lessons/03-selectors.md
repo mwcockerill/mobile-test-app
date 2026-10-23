@@ -30,7 +30,7 @@ Now click each target in `maestro studio`:
 | Target | Text | id | Accessibility label |
 |---|---|---|---|
 | Submit | `Submit` / `SUBMIT` | `submit-button` | |
-| Find me by label | `Find me by label` | `label-target` | `Accessible target` |
+| Find me by label | `Find me by label` (Android only, see below) | `label-target` | `Accessible target` |
 | Tap me by text | `Tap me by text` | `text-target` | |
 
 An **accessibility label** is the text a screen reader (VoiceOver or TalkBack) reads aloud. Developers set it for people who can't see the screen. Maestro can find elements by it just as it finds text.
